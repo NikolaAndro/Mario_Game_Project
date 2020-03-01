@@ -1,7 +1,23 @@
 # Mario Game Project
 # Team 5 CS 3100
 
+import os.path
 import pygame
+from pygame.locals import * 
+from pytmx.util_pygame import load_pygame
+
+import pyscroll
+import pyscroll.data
+from pyscroll.group import PyscrollGroup
+
+TEST_DIR = 'test'
+
+def get_map(filename):
+    return os.path.join(TEST_DIR, filename)
+
+def load_image(filename):
+    return pygame.image.load(os.path.join(TEST_DIR, filename))
+
 
 # SceneBase
 # Parent class for all future scenes
@@ -57,6 +73,22 @@ class GameScene(SceneBase):
             pass
         def Render(self, screen):
             screen.fill((0,0,255))
+
+class MarioGame(object):
+    filename = get_map("desert.tmx")
+
+    def __init__(self):
+        self.running = False
+        tmx_data = load_pygame(self.filename)
+
+        self.walls = list()
+        for object in tmx_data.objects:
+            self.walls.append(pygame.Rect(object.x, object.y,object.width,object.height))
+
+        map_data = pyscroll.data.TiledMapData(tmx_data)
+
+        self.map_layer = pyscroll.BufferedRenderer(map_data)
+
 def main():
     pygame.init()
     # default values for the width and height
