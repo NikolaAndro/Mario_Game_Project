@@ -25,13 +25,11 @@ func _physics_process(delta):
 		
 	velocity = move_and_slide(velocity, FLOOR)
 
-
 func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
 	get_node("BodyCol").disabled = true
 	queue_free()
-
 
 
 func _on_KillDetector_area_entered(area):
@@ -41,8 +39,6 @@ func _on_KillDetector_area_entered(area):
 	else:
 		$AnimatedSprite.flip_h = true
 		direction = -1
-		
-
 
 func _on_KillDetector_body_entered(body):
 	if direction == -1:

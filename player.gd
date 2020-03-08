@@ -7,6 +7,8 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 
+export var stomp_impulse =1000.0
+
 var timer
 func _init():
 	timer = Timer.new()
@@ -65,7 +67,26 @@ func _physics_process(delta):
 			
 	velocity = move_and_slide(velocity, FLOOR)
 
+
+func calculate_stomp_velocity(linear_velocity: Vector2, impulse: float) -> Vector2:
+	var out: = linear_velocity
+	out.y = -impulse
+	return out
+
+
+
 	
-	
-	
-	
+	velocity.y = calculate_stomp_velocity(velocity.y, stomp_impulse)
+
+
+
+
+func _on_StepDetector_area_entered(area):
+	velocity.y = JUMP_POWER
+
+
+func _on_DeathDetector_area_entered(body):
+	if body.global_position.y > get_node("DeathDetector").global_position.y:
+		return
+	get_node("BodyCol").disabled = true
+	queue_free()
