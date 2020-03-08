@@ -8,10 +8,6 @@
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_up3.png" type="Texture" id=6]
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_walk1.png" type="Texture" id=7]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 16.5499
-height = 17.0058
-
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 4 ) ],
@@ -19,24 +15,29 @@ animations = [ {
 "name": "idle",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "fall",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 3 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "run",
-"speed": 12.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": false,
 "name": "jump",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "run",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "fall",
+"speed": 0.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 11.8573
+height = 5.18467
+
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 72.1784, 24.9393 )
+position = Vector2( 106.14, 36.6373 )
+collision_layer = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -45,10 +46,12 @@ __meta__ = {
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 25, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.188669, -0.377357 )
+scale = Vector2( 0.572332, 0.566741 )
 frames = SubResource( 2 )
 animation = "idle"
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )

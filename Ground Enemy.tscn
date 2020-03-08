@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyWalking_1.png" type="Texture" id=1]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyWalking_2.png" type="Texture" id=2]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyWalking_3.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.6305
+height = 1.11089
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10.4163, 2.77011 )
+
+[node name="Ground Enemy" type="KinematicBody2D"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -7.7486e-07, 0.440126 )
+scale = Vector2( 0.642396, 0.599885 )
+frames = SubResource( 1 )
+animation = "run"
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.188938, 0.755749 )
+shape = SubResource( 2 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+position = Vector2( -0.0944691, -9.73025 )
+monitorable = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+position = Vector2( 0, 7.62939e-06 )
+shape = SubResource( 3 )
