@@ -10,8 +10,10 @@ var velocity = Vector2()
 var direction = 1
 var stunned = 1
 
-func _on_Ground_Enemy_2_ready():
+	
+func _on_Ground_Enemy_3_ready():
 	$AnimatedSprite.play("run")
+	
 	
 var timer
 func _init():
@@ -40,12 +42,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 
 func _on_StompDetector_body_entered(body):
-	if stunned == 0:
-		if body.global_position.y > get_node("StompDetector").global_position.y:
-			return
-		get_node("BodyCol").disabled = true
-		queue_free()
-	else:
+	if stunned == 1:
 		stunned = 0
 		$AnimatedSprite.play("stunned")
 		timer.start()
@@ -66,4 +63,3 @@ func _on_KillDetector_body_entered(body):
 	else:
 		$AnimatedSprite.flip_h = true
 		direction = -1
-

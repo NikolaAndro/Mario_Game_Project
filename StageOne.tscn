@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ground_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Ground Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Ground Enemy 2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://art/abstract-platformer-370-assets/Tilesheet/tilesheet_complete.png" type="Texture" id=5]
+[ext_resource path="res://Flying Enemy 2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Ground Enemy 3.tscn" type="PackedScene" id=8]
 
 [sub_resource type="TileSet" id=1]
 0/name = "ground 01.png"
@@ -34,10 +36,10 @@ tile_set = ExtResource( 2 )
 cell_size = Vector2( 40, 40 )
 cell_y_sort = true
 format = 1
-tile_data = PoolIntArray( 23, 0, 0, 65536, 0, 0, 65559, 0, 0, 131072, 0, 0, 131095, 0, 0, 196608, 0, 0, 196631, 0, 0, 262144, 0, 0, 262167, 0, 0, 327680, 0, 0, 327703, 0, 0, 393216, 0, 0, 393224, 0, 0, 393237, 0, 0, 393239, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0 )
+tile_data = PoolIntArray( 23, 0, 0, 65536, 0, 0, 65559, 0, 0, 131072, 0, 0, 131095, 0, 0, 196608, 0, 0, 196631, 0, 0, 262144, 0, 0, 262167, 0, 0, 327680, 0, 0, 327703, 0, 0, 393216, 0, 0, 393224, 0, 0, 393239, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0 )
 
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 196.432, 107.259 )
+position = Vector2( 283.012, 127.055 )
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -48,3 +50,9 @@ format = 1
 
 [node name="Ground Enemy 2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 63.8535, 111.519 )
+
+[node name="Flying Enemy 2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 131.229, 96.9287 )
+
+[node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 231.733, 132.357 )

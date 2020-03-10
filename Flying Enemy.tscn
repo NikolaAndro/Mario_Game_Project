@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFlying_2.png" type="Texture" id=1]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFlying_1.png" type="Texture" id=2]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFlying_3.png" type="Texture" id=3]
+[ext_resource path="res://Flying Enemy.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 23.9268
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 9.60276, 1.01956 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1.2986, 9.82195 )
+
+[node name="Flying Enemy" type="KinematicBody2D"]
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 7.26416, -9.97611 )
+scale = Vector2( 0.530856, 0.566699 )
+frames = SubResource( 1 )
+animation = "run"
+
+[node name="BodyCol" type="CollisionShape2D" parent="."]
+position = Vector2( 7.34283, -8.75262 )
+rotation = 1.5708
+scale = Vector2( 0.566699, 0.530856 )
+shape = SubResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 7.26416, -9.97611 )
+scale = Vector2( 0.530856, 0.566699 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.0196078, 0.117647, 0.65098, 1 )
+position = Vector2( 6.97546, -21.7569 )
+shape = SubResource( 3 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0, 0.423529, 0.054902, 1 )
+position = Vector2( -5.14856, -9.46673 )
+shape = SubResource( 4 )
+
+[node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0, 0.423529, 0.054902, 1 )
+position = Vector2( 20.096, -9.30064 )
+shape = SubResource( 4 )
+
+[node name="BottomCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.0156863, 0.364706, 0.0862745, 1 )
+position = Vector2( -19.9299, -33.8809 )
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
+[connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]

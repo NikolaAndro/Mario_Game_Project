@@ -85,8 +85,8 @@ func _on_StepDetector_area_entered(area):
 	velocity.y = JUMP_POWER
 
 
-func _on_DeathDetector_area_entered(body):
-	if body.global_position.y > get_node("DeathDetector").global_position.y:
+func _on_DeathDetector_area_entered(area):
+	if area.global_position.y > get_node("DeathDetector").global_position.y:
 		return
 	get_node("BodyCol").disabled = true
 	queue_free()

@@ -51,3 +51,10 @@ func _on_KillDetector_body_entered(body):
 	else:
 		$AnimatedSprite.flip_h = true
 		direction = -1
+
+
+func _on_Body_area_entered(area):
+	if area.global_position.y > get_node("StompDetector").global_position.y:
+		return
+	get_node("BodyCol").disabled = true
+	queue_free()

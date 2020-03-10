@@ -8,11 +8,8 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
-var stunned = 1
+var dropped = 0
 
-func _on_Ground_Enemy_2_ready():
-	$AnimatedSprite.play("run")
-	
 var timer
 func _init():
 	timer = Timer.new()
@@ -21,35 +18,32 @@ func _init():
 	timer.connect("timeout", self, "_timeout")
 	
 func _timeout():
-	stunned = 1
-	$AnimatedSprite.play("run")
-		
-		
-func _physics_process(delta):
+	direction = 1
 	
-	velocity.x = SPEED*direction*stunned
-	
-	velocity.y += GRAVITY 
 
+func _physics_process(delta):
+	velocity.x = SPEED*direction
+	$AnimatedSprite.play("run")
+	
 	if is_on_floor():
 		on_ground = true
 	else:
 		on_ground = false
 			
-		
+	velocity.y += GRAVITY*dropped
+	
 	velocity = move_and_slide(velocity, FLOOR)
 
-func _on_StompDetector_body_entered(body):
-	if stunned == 0:
-		if body.global_position.y > get_node("StompDetector").global_position.y:
-			return
-		get_node("BodyCol").disabled = true
-		queue_free()
-	else:
-		stunned = 0
-		$AnimatedSprite.play("stunned")
-		timer.start()
 
+
+func _on_StompDetector_body_entered(body):
+	if on_ground == true:
+			if body.global_position.y > get_node("StompDetector").global_position.y:
+				return
+			get_node("BodyCol").disabled = true
+			queue_free()
+	else:
+		dropped = 1
 
 func _on_KillDetector_area_entered(area):
 	if direction == -1:
@@ -58,6 +52,8 @@ func _on_KillDetector_area_entered(area):
 	else:
 		$AnimatedSprite.flip_h = true
 		direction = -1
+		
+
 
 func _on_KillDetector_body_entered(body):
 	if direction == -1:
@@ -66,4 +62,3 @@ func _on_KillDetector_body_entered(body):
 	else:
 		$AnimatedSprite.flip_h = true
 		direction = -1
-

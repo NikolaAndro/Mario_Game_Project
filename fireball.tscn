@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Items/redGem.png" type="Texture" id=1]
 [ext_resource path="res://fireball.gd" type="Script" id=2]
@@ -12,7 +12,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 11.1263, 11.3409 )
+extents = Vector2( 7.06459, 6.83001 )
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends CollisionShape2D
@@ -33,21 +33,33 @@ func _ready():
 #	pass
 "
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 7.38907
+
 [node name="fireball" type="Area2D"]
-position = Vector2( -0.0131283, -0.0131288 )
+position = Vector2( -5.65996, -0.843545 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 11.354, 5.14728 )
+position = Vector2( 16.6687, 8.88415 )
+scale = Vector2( 0.592341, 0.645185 )
 frames = SubResource( 1 )
 animation = "shoot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 11.2823, 5.10181 )
+position = Vector2( 16.9291, 9.08781 )
 shape = SubResource( 2 )
 script = SubResource( 3 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 11.2792, 4.85195 )
-scale = Vector2( 1.09452, 1.12602 )
+position = Vector2( 16.5939, 8.92099 )
+scale = Vector2( 0.69592, 0.735724 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+position = Vector2( 10.9615, 5.14858 )
+collision_layer = 4
+
+[node name="Col" type="CollisionShape2D" parent="KillDetector"]
+position = Vector2( 5.31467, 3.48775 )
+shape = SubResource( 4 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
