@@ -5,13 +5,10 @@
 [ext_resource path="res://Ground Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Ground Enemy 2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://art/abstract-platformer-370-assets/Tilesheet/tilesheet_complete.png" type="Texture" id=5]
-<<<<<<< HEAD
 [ext_resource path="res://StageOne.gd" type="Script" id=6]
 [ext_resource path="res://fonts/mario_font.tres" type="DynamicFont" id=7]
-=======
 [ext_resource path="res://Flying Enemy 2.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Ground Enemy 3.tscn" type="PackedScene" id=8]
->>>>>>> a62b243490eb6960b57883010226a5a19b2f971c
 
 [sub_resource type="TileSet" id=1]
 0/name = "ground 01.png"
@@ -84,11 +81,9 @@ cell_quadrant_size = 13
 cell_custom_transform = Transform2D( 15, 0, 0, 15, 0, 0 )
 format = 1
 
-<<<<<<< HEAD
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-=======
 [node name="Ground Enemy 2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 63.8535, 111.519 )
 
@@ -97,4 +92,3 @@ position = Vector2( 131.229, 96.9287 )
 
 [node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 231.733, 132.357 )
->>>>>>> a62b243490eb6960b57883010226a5a19b2f971c
