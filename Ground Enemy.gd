@@ -8,22 +8,26 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
-
+var is_dead = false
+	
+func dead():
+	is_dead = true
+	velocity = Vector2(0,0)
 	
 func _physics_process(delta):
-	
-	velocity.x = SPEED*direction
-	$AnimatedSprite.play("run")
-	
-	velocity.y += GRAVITY 
-
-	if is_on_floor():
-		on_ground = true
-	else:
-		on_ground = false
-			
+	if is_dead == false:
+		velocity.x = SPEED*direction
+		$AnimatedSprite.play("run")
 		
-	velocity = move_and_slide(velocity, FLOOR)
+		velocity.y += GRAVITY 
+	
+		if is_on_floor():
+			on_ground = true
+		else:
+			on_ground = false
+				
+			
+		velocity = move_and_slide(velocity, FLOOR)
 
 
 func _on_StompDetector_body_entered(body):
@@ -52,9 +56,8 @@ func _on_KillDetector_body_entered(body):
 		$AnimatedSprite.flip_h = true
 		direction = -1
 
-
 func _on_Body_area_entered(area):
-	if area.global_position.y > get_node("StompDetector").global_position.y:
+	if area.global_position.y > get_node("Body").global_position.y:
 		return
 	get_node("BodyCol").disabled = true
 	queue_free()

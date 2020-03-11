@@ -32,11 +32,15 @@ func _physics_process(delta):
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = SPEED
 		$AnimatedSprite.play("run")
+		if sign($Position2D.position.x) == -1:
+			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):	
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = -SPEED
 		$AnimatedSprite.flip_h = true
+		if sign($Position2D.position.x) == 1:
+			$Position2D.position.x *= -1
 		$AnimatedSprite.play("run")
 	else:
 		velocity.x = 0
@@ -51,6 +55,10 @@ func _physics_process(delta):
 	#fireball
 	if Input.is_action_just_pressed("ui_down"):
 		var fireball = FIREBALL.instance()
+		if sign($Position2D.position.x) == 1:
+			fireball.set_fireball_direction(1)
+		else:
+			fireball.set_fireball_direction(-1)
 		get_parent().add_child(fireball)
 		fireball.position = $Position2D.global_position
 		timer.start()

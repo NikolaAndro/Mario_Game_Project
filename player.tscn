@@ -39,7 +39,7 @@ height = 5.18467
 extents = Vector2( 7.68497, 4.40398 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 5.09979, 6.42761 )
+extents = Vector2( 5.2497, 6.42761 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5.09984, 6.57749 )
@@ -48,14 +48,14 @@ extents = Vector2( 5.09984, 6.57749 )
 extents = Vector2( 6.29891, 4.02937 )
 
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 17.0216, 8.30943 )
+position = Vector2( 23.1671, 8.7591 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 25, 0 )
+position = Vector2( 25, -7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.188669, -0.377357 )
@@ -72,20 +72,21 @@ monitorable = false
 
 [node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
 modulate = Color( 0, 0.0941176, 0.701961, 1 )
-position = Vector2( -0.0369835, 10.867 )
+position = Vector2( -0.0369835, 10.1175 )
 shape = SubResource( 3 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
+position = Vector2( 0.149891, 0 )
 collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.109804, 0.619608, 0.00392157, 1 )
-position = Vector2( -8.09409, -0.449667 )
+position = Vector2( -8.99343, -1.04923 )
 shape = SubResource( 4 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0156863, 0.588235, 0.145098, 1 )
-position = Vector2( 8.69365, -0.149895 )
+position = Vector2( 8.24398, -1.19913 )
 shape = SubResource( 5 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector"]

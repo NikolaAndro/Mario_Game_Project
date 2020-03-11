@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFloating_2.png" type="Texture" id=1]
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFloating_1.png" type="Texture" id=2]
@@ -29,6 +29,8 @@ extents = Vector2( 2.00544, 6.00299 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 2.22473, 6.44158 )
+
+[sub_resource type="CircleShape2D" id=6]
 
 [node name="Ground Enemy 2" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -64,6 +66,11 @@ shape = SubResource( 4 )
 modulate = Color( 0.00784314, 0.533333, 0.129412, 1 )
 position = Vector2( 25.9497, 15.5698 )
 shape = SubResource( 5 )
+
+[node name="Body" type="Area2D" parent="."]
+
+[node name="FireballCol" type="CollisionShape2D" parent="Body"]
+shape = SubResource( 6 )
 [connection signal="ready" from="." to="." method="_on_Ground_Enemy_2_ready"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]

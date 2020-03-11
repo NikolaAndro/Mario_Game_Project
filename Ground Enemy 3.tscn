@@ -1,21 +1,21 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySwimming_2.png" type="Texture" id=1]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySwimming_1.png" type="Texture" id=2]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySpikey_4.png" type="Texture" id=1]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySpikey_1.png" type="Texture" id=2]
 [ext_resource path="res://Ground Enemy 3.gd" type="Script" id=3]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySwimming_4.png" type="Texture" id=4]
+[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySpikey_2.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 6.75783, 6.12526 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.93485, 6.563 )
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "stunned",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "run",
 "speed": 5.0
@@ -24,11 +24,11 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.08838, 0.836464 )
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1.13712, 5.76864 )
-
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 1.17109, 5.80828 )
+extents = Vector2( 1.16024, 5.80828 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 1.21302, 5.50744 )
 
 [node name="Ground Enemy 3" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -37,35 +37,34 @@ script = ExtResource( 3 )
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
 position = Vector2( -0.220366, -0.440733 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.0202212, -0.50796 )
-scale = Vector2( 0.316363, 0.373333 )
-frames = SubResource( 1 )
+position = Vector2( -0.152167, -0.409005 )
+scale = Vector2( 0.295747, 0.322206 )
+frames = SubResource( 2 )
 animation = "stunned"
 
 [node name="StompDetector" type="Area2D" parent="."]
-position = Vector2( -0.300983, -9.4893 )
+position = Vector2( -0.498893, -10.8087 )
 
 [node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
 modulate = Color( 0.00392157, 0.192157, 0.556863, 1 )
-position = Vector2( 0.0747471, -0.162044 )
+position = Vector2( 0.0747471, 0.10184 )
 shape = SubResource( 3 )
 
 [node name="KillDetector" type="Area2D" parent="."]
-position = Vector2( 8.25801, 0.282807 )
-collision_layer = 3
+position = Vector2( -0.585389, -10.6387 )
 
 [node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
-modulate = Color( 0.00392157, 0.439216, 0.133333, 1 )
-position = Vector2( -16.8875, -0.854378 )
-shape = SubResource( 4 )
+modulate = Color( 0.00784314, 0.466667, 0.188235, 1 )
+position = Vector2( -6.41236, 10.1529 )
+shape = SubResource( 5 )
 
 [node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
-modulate = Color( 0.00784314, 0.466667, 0.188235, 1 )
-position = Vector2( 0, -0.689394 )
-shape = SubResource( 5 )
+modulate = Color( 0.00392157, 0.447059, 0.0431373, 1 )
+position = Vector2( 7.25681, 9.76369 )
+shape = SubResource( 6 )
 [connection signal="ready" from="." to="." method="_on_Ground_Enemy_3_ready"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
