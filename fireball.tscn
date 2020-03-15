@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Items/redGem.png" type="Texture" id=1]
 [ext_resource path="res://fireball.gd" type="Script" id=2]
@@ -33,13 +33,10 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="CircleShape2D" id=4]
-radius = 5.50057
-
 [node name="fireball" type="Area2D"]
 position = Vector2( 3.34261, -9.92306 )
-collision_layer = 0
-collision_mask = 0
+collision_layer = 5
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -56,15 +53,6 @@ script = SubResource( 3 )
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 4.09034, 2.26525 )
 scale = Vector2( 0.49971, 0.554903 )
-
-[node name="KillDetector" type="Area2D" parent="."]
-position = Vector2( 39.0296, 10.6293 )
-collision_layer = 4
-collision_mask = 4
-
-[node name="Col" type="CollisionShape2D" parent="KillDetector"]
-position = Vector2( -35.0815, -8.43873 )
-shape = SubResource( 4 )
 [connection signal="area_entered" from="." to="." method="_on_fireball_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_fireball_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

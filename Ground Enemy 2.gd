@@ -67,3 +67,12 @@ func _on_KillDetector_body_entered(body):
 		$AnimatedSprite.flip_h = true
 		direction = -1
 
+
+
+func _on_Body_area_entered(area):
+	if "enemyAttack" in area.name:
+		direction = direction
+	elif "Body" in area.name:
+		direction = direction
+	else:
+		queue_free()

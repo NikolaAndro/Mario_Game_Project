@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFlying_2.png" type="Texture" id=1]
 [ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFlying_1.png" type="Texture" id=2]
@@ -34,6 +34,10 @@ extents = Vector2( 1.63076, 7.49679 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 11.7618, 1.35172 )
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 9.94659
+height = 17.9259
 
 [node name="Flying Enemy" type="KinematicBody2D"]
 position = Vector2( 16.6083, 8.63631 )
@@ -78,7 +82,18 @@ shape = SubResource( 5 )
 modulate = Color( 0.0117647, 0.431373, 0.176471, 1 )
 position = Vector2( 0.166073, 7.97198 )
 shape = SubResource( 6 )
+
+[node name="Body" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="FireballCol" type="CollisionShape2D" parent="Body"]
+modulate = Color( 0.0588235, 0.00392157, 0.00392157, 1 )
+position = Vector2( -15.6658, -8.85459 )
+rotation = 1.5708
+shape = SubResource( 7 )
 [connection signal="ready" from="." to="." method="_on_Flying_Enemy_2_ready"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
 [connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]

@@ -6,7 +6,7 @@ const FLOOR = Vector2(0,-1)
 const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
-
+var direction = 1
 export var stomp_impulse =1000.0
 
 var timer
@@ -29,6 +29,7 @@ func _physics_process(delta):
 	
 	
 	if Input.is_action_pressed("ui_right"):
+		direction = 1
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = SPEED
 		$AnimatedSprite.play("run")
@@ -36,6 +37,7 @@ func _physics_process(delta):
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):	
+		direction = -1
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = -SPEED
 		$AnimatedSprite.flip_h = true
@@ -60,7 +62,11 @@ func _physics_process(delta):
 		else:
 			fireball.set_fireball_direction(-1)
 		get_parent().add_child(fireball)
-		fireball.position = $Position2D.global_position
+		if direction == 1:
+			fireball.position = $Position2D.global_position
+		else:
+			fireball.position.x = $Position2D.global_position.x - 10
+			fireball.position.y = $Position2D.global_position.y
 		timer.start()
 	velocity.y += GRAVITY 
 
@@ -76,25 +82,18 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 
 
-func calculate_stomp_velocity(linear_velocity: Vector2, impulse: float) -> Vector2:
-	var out: = linear_velocity
-	out.y = -impulse
-	return out
-
-
-
-	
-	velocity.y = calculate_stomp_velocity(velocity.y, stomp_impulse)
-
-
-
-
 func _on_StepDetector_area_entered(area):
-	velocity.y = JUMP_POWER
+	if "fireball" in area.name:
+		on_ground = on_ground
+	else:
+		velocity.y = JUMP_POWER
 
 
 func _on_DeathDetector_area_entered(area):
-	if area.global_position.y > get_node("DeathDetector").global_position.y:
-		return
-	get_node("BodyCol").disabled = true
-	queue_free()
+	if "fireball" in area.name:
+		on_ground = on_ground
+	else:
+		if area.global_position.y > get_node("DeathDetector").global_position.y:
+			return
+		get_node("BodyCol").disabled = true
+		queue_free()

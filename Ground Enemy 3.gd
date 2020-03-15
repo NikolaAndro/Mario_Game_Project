@@ -48,12 +48,15 @@ func _on_StompDetector_body_entered(body):
 		timer.start()
 
 func _on_KillDetector_area_entered(area):
-	if direction == -1:
-		$AnimatedSprite.flip_h = false
-		direction = 1
+	if "enemyAttack" or "fireball" in area.name:
+		direction = direction
 	else:
-		$AnimatedSprite.flip_h = true
-		direction = -1
+		if direction == -1:
+			$AnimatedSprite.flip_h = false
+			direction = 1
+		else:
+			$AnimatedSprite.flip_h = true
+			direction = -1
 
 func _on_KillDetector_body_entered(body):
 	if direction == -1:

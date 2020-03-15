@@ -39,12 +39,15 @@ func _on_StompDetector_body_entered(body):
 
 
 func _on_KillDetector_area_entered(area):
-	if direction == -1:
-		$AnimatedSprite.flip_h = false
-		direction = 1
+	if "enemyAttack" in area.name:
+		direction = direction
 	else:
-		$AnimatedSprite.flip_h = true
-		direction = -1
+		if direction == -1:
+			$AnimatedSprite.flip_h = false
+			direction = 1
+		else:
+			$AnimatedSprite.flip_h = true
+			direction = -1
 		
 
 
@@ -57,7 +60,12 @@ func _on_KillDetector_body_entered(body):
 		direction = -1
 
 func _on_Body_area_entered(area):
-	if area.global_position.y > get_node("Body").global_position.y:
-		return
-	get_node("BodyCol").disabled = true
-	queue_free()
+	if "enemyAttack" in area.name:
+		direction = direction
+	elif "Body" in area.name:
+		direction = direction
+	else:
+		if area.global_position.y > get_node("Body").global_position.y:
+			return
+		get_node("BodyCol").disabled = true
+		queue_free()

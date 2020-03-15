@@ -31,6 +31,7 @@ extents = Vector2( 2.00544, 6.00299 )
 extents = Vector2( 2.22473, 6.44158 )
 
 [sub_resource type="CircleShape2D" id=6]
+radius = 9.82735
 
 [node name="Ground Enemy 2" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -68,10 +69,15 @@ position = Vector2( 25.9497, 15.5698 )
 shape = SubResource( 5 )
 
 [node name="Body" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="FireballCol" type="CollisionShape2D" parent="Body"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 19.6564, 15.3636 )
 shape = SubResource( 6 )
 [connection signal="ready" from="." to="." method="_on_Ground_Enemy_2_ready"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
 [connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]
