@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="MarioProject"
 run/main_scene="res://StageOne.tscn"
 
+[autoload]
+
+MusicController="*res://MusicController.tscn"
+
 [display]
 
 window/size/width=320

@@ -7,15 +7,6 @@ func _ready():
 	setMap()
 
 func setMap():
-#	var result = {}
-#	var file = File.new()
-#	file.open(path, file.READ)
-#	var text = file.get_as_text()
-#	validate_json(text)
-#	var result_json = JSON.parse(text).result
-#	file.close()
-	#print(result_json["2"]["FIELD3"])
-	#print(result_json)
 	_tileset = get_tileset()
 	var tile_pos  = Vector2()
 	var mainData = {}
@@ -113,7 +104,7 @@ func setMap():
 			if(mainData[i][j] == "^"):
 				tile_type = "flag"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite21"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite22"))
 			if(mainData[i][j] == '_'):
 				print("blank")
 			if(mainData[i][j] == '1'):
@@ -175,7 +166,9 @@ func setMap():
 			if(mainData[i][j] == 'Q'):
 				print("Pipe Jump Out")
 			if(mainData[i][j] == 'R'):
-				print("Pipe Jump Back")
+				tile_type = "Pipe Jump Back"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite21"))
 			if(mainData[i][j] == 'S'):
 				print("Side Pipe")
 			if(mainData[i][j] == 'T'):
