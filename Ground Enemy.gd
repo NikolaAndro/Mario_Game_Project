@@ -9,6 +9,9 @@ var on_ground = false
 var velocity = Vector2()
 var direction = 1
 var is_dead = false
+
+func _ready():
+	set_position(Vector2(500,210))
 	
 func dead():
 	is_dead = true

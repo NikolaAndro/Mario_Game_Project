@@ -10,7 +10,8 @@ var velocity = Vector2()
 var direction = 1
 var attack = 0
 
-
+func _ready():
+	set_position(Vector2(400,150))
 
 func _physics_process(delta):
 	attack += 1

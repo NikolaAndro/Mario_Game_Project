@@ -1,36 +1,21 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFloating_2.png" type="Texture" id=1]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemyFloating_1.png" type="Texture" id=2]
+[ext_resource path="res://ground_enemy2.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Ground Enemy 2.gd" type="Script" id=3]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Enemies/enemySpikey_4.png" type="Texture" id=4]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "stunned",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "run",
-"speed": 5.0
-} ]
-
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 8.23827
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8.21876, 0.447556 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 2.00544, 6.00299 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 2.22473, 6.44158 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=5]
 radius = 9.82735
 
 [node name="Ground Enemy 2" type="KinematicBody2D"]
@@ -40,13 +25,12 @@ script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 19.5172, 15.0605 )
-scale = Vector2( 0.377967, 0.400653 )
-frames = SubResource( 1 )
+frames = ExtResource( 1 )
 animation = "stunned"
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
 position = Vector2( 19.5062, 15.426 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="StompDetector" type="Area2D" parent="."]
 collision_layer = 2
@@ -54,19 +38,19 @@ collision_layer = 2
 [node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
 modulate = Color( 0.00784314, 0.129412, 0.462745, 1 )
 position = Vector2( 19.5902, 4.02039 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="KillDetector" type="Area2D" parent="."]
 
 [node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
 modulate = Color( 0.00392157, 0.501961, 0.0823529, 1 )
 position = Vector2( 12.9383, 15.3505 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
 modulate = Color( 0.00784314, 0.533333, 0.129412, 1 )
 position = Vector2( 25.9497, 15.5698 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Body" type="Area2D" parent="."]
 collision_layer = 4
@@ -75,7 +59,7 @@ collision_mask = 4
 [node name="FireballCol" type="CollisionShape2D" parent="Body"]
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 19.6564, 15.3636 )
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 [connection signal="ready" from="." to="." method="_on_Ground_Enemy_2_ready"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
