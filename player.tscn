@@ -1,50 +1,22 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_walk3.png" type="Texture" id=1]
+[ext_resource path="res://player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_walk2.png" type="Texture" id=3]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_stand.png" type="Texture" id=4]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_fall.png" type="Texture" id=5]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_up3.png" type="Texture" id=6]
-[ext_resource path="res://art/abstract-platformer-370-assets/PNG/Players/Player Blue/playerBlue_walk1.png" type="Texture" id=7]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": false,
-"name": "idle",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": false,
-"name": "jump",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "run",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "fall",
-"speed": 0.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
 height = 5.18467
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.68497, 4.40398 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 5.2497, 6.42761 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5.09984, 6.57749 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 6.29891, 4.02937 )
 
 [node name="player" type="KinematicBody2D"]
@@ -60,12 +32,12 @@ position = Vector2( 25, -7 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.188669, -0.377357 )
 scale = Vector2( 0.572332, 0.566741 )
-frames = SubResource( 1 )
+frames = ExtResource( 1 )
 animation = "idle"
 playing = true
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="StepDetector" type="Area2D" parent="."]
 monitorable = false
@@ -73,7 +45,7 @@ monitorable = false
 [node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
 modulate = Color( 0, 0.0941176, 0.701961, 1 )
 position = Vector2( -0.0369835, 10.1175 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
 position = Vector2( 0.149891, 0 )
@@ -82,16 +54,16 @@ collision_layer = 3
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.109804, 0.619608, 0.00392157, 1 )
 position = Vector2( -8.99343, -1.04923 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0156863, 0.588235, 0.145098, 1 )
 position = Vector2( 8.24398, -1.19913 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0117647, 0.52549, 0.258824, 1 )
 position = Vector2( -0.449673, -11.8413 )
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
