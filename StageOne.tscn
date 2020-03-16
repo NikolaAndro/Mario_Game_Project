@@ -21,6 +21,94 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="player"]
+margin_left = -317.0
+margin_top = -178.0
+margin_right = 318.0
+margin_bottom = -128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="VBoxContainer" parent="player/HBoxContainer"]
+margin_right = 123.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="player/HBoxContainer/Score"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "Score"
+
+[node name="Current_Score" type="Label" parent="player/HBoxContainer/Score"]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 32.0
+
+[node name="Coins" type="VBoxContainer" parent="player/HBoxContainer"]
+margin_left = 127.0
+margin_right = 250.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Coins" type="Label" parent="player/HBoxContainer/Coins"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "Coins"
+
+[node name="Current_Coins" type="Label" parent="player/HBoxContainer/Coins"]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 32.0
+
+[node name="Lives" type="VBoxContainer" parent="player/HBoxContainer"]
+margin_left = 254.0
+margin_right = 377.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Lives" type="Label" parent="player/HBoxContainer/Lives"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "Lives"
+
+[node name="Current_Lives" type="Label" parent="player/HBoxContainer/Lives"]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 32.0
+
+[node name="World" type="VBoxContainer" parent="player/HBoxContainer"]
+margin_left = 381.0
+margin_right = 504.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="World" type="Label" parent="player/HBoxContainer/World"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "World"
+
+[node name="Current_World" type="Label" parent="player/HBoxContainer/World"]
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 32.0
+
+[node name="Time" type="VBoxContainer" parent="player/HBoxContainer"]
+margin_left = 508.0
+margin_right = 635.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Time" type="Label" parent="player/HBoxContainer/Time"]
+margin_right = 127.0
+margin_bottom = 14.0
+text = "Time"
+
+[node name="Current_Time" type="Label" parent="player/HBoxContainer/Time"]
+margin_top = 18.0
+margin_right = 127.0
+margin_bottom = 32.0
+
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224.51, 126.001 )
 
