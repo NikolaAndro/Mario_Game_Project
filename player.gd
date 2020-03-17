@@ -7,7 +7,22 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
-export var stomp_impulse =1000.0
+var lives = 3
+var score = 0
+var coins = 0
+var counter = 300
+export var stomp_impulse = 1000.0
+
+func _ready():
+	$HBoxContainer/Time/Current_Time.text = str(counter)
+	$HBoxContainer/World/Current_World.text = "1-1"
+	$HBoxContainer/Lives/Current_Lives.text = str(lives)
+	$HBoxContainer/Score/Current_Score.text = str(score)
+	$HBoxContainer/Coins/Current_Coins.text = str(coins)
+	
+func _on_Timer_timeout():
+	counter -= 1
+	$HBoxContainer/Time/Current_Time.text = str(counter)
 
 var timer
 func _init():
