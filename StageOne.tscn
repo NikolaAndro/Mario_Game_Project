@@ -16,7 +16,7 @@ __meta__ = {
 }
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 150 )
+position = Vector2( 5.08051, 163.59 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -120,8 +120,6 @@ margin_right = 127.0
 margin_bottom = 36.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Timer" type="Timer" parent="player"]
-
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224.51, 126.001 )
 
@@ -144,4 +142,6 @@ position = Vector2( 44.9813, 118.583 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 65.245, 93.9824 )
-scale = Vector2( 0.5, 0.5 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

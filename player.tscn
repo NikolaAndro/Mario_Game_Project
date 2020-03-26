@@ -31,7 +31,7 @@ position = Vector2( 25, -7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.188669, -0.377357 )
-scale = Vector2( 0.572332, 0.566741 )
+scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "idle"
 playing = true
