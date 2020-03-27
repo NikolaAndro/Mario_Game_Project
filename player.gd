@@ -95,6 +95,78 @@ func _physics_process(delta):
 			$AnimatedSprite.play("fall")
 			
 	velocity = move_and_slide(velocity, FLOOR)
+	
+	#code to deal with block-player interactions
+	var tile_id
+	var tile_pos
+	var collision
+	var tile_name
+	var new_id
+	var item
+	var item_tile_pos
+	var item_collision
+	for i in range(get_slide_count()):
+		collision = get_slide_collision(i)
+		if collision.collider is TileMap:
+			tile_pos = collision.collider.world_to_map(position)
+			tile_pos -= collision.normal
+			tile_id = collision.collider.get_cellv(tile_pos)
+			tile_name = collision.collider.tile_set.tile_get_name(tile_id)
+			if(tile_name == "Sprite" and Input.is_action_pressed("ui_up")):
+				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
+				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y -1)
+				collision.collider.set_cellv(tile_pos, new_id)
+				collision.collider.set_cellv(item_tile_pos, item)
+			if(tile_name == "Sprite12"):
+				coins += 1
+				$HBoxContainer/Coins/Current_Coins.text = str(coins)
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+			if(tile_name == "Sprite15"):
+				lives += 1
+				$HBoxContainer/Lives/Current_Lives.text = str(lives)
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+			if(tile_name == "Sprite14"):
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+				
+				#TODO: setup functionality for power-up
+				
+			if(tile_name == "Sprite18"):
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+				
+				#TODO: setup functionality for star
+				
+			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")):
+				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
+				collision.collider.set_cellv(tile_pos, new_id)
+				
+				
+			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")):
+				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
+				item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y -1)
+				collision.collider.set_cellv(tile_pos, new_id)
+				collision.collider.set_cellv(item_tile_pos, item)
+			if(tile_name == "Sprite24" and Input.is_action_pressed("ui_up")):
+				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
+				item = collision.collider.tile_set.find_tile_by_name("Sprite18")
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y -1)
+				collision.collider.set_cellv(tile_pos, new_id)
+				collision.collider.set_cellv(item_tile_pos, item)
+			if(tile_name == "Sprite25" and Input.is_action_pressed("ui_up")):
+				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
+				item = collision.collider.tile_set.find_tile_by_name("Sprite15")
+				item_tile_pos = Vector2(tile_pos.x, tile_pos.y -1)
+				collision.collider.set_cellv(tile_pos, new_id)
+				collision.collider.set_cellv(item_tile_pos, item)
 
 
 func _on_StepDetector_area_entered(area):
