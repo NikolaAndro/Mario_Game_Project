@@ -126,15 +126,15 @@ func setMap():
 			if(mainData[i][j] == 'B'):
 				tile_type = "? - Power Up"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite23"))
 			if(mainData[i][j] == 'C'):
 				tile_type = "? - Star"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite24"))
 			if(mainData[i][j] == 'D'):
 				tile_type = "? - 1up"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite25"))
 			if(mainData[i][j] == 'E'):
 				tile_type = "Coin"
 				tile_pos = Vector2(j,i)
