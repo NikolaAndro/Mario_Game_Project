@@ -120,17 +120,27 @@ func _physics_process(delta):
 				collision.collider.set_cellv(item_tile_pos, item)
 			if(tile_name == "Sprite12"):
 				coins += 1
+				score += 200
+				if(coins == 100):
+					coins = 0
+					lives += 1
+				$HBoxContainer/Score/Current_Score.text = str(score)
 				$HBoxContainer/Coins/Current_Coins.text = str(coins)
+				$HBoxContainer/Lives/Current_Lives.text = str(lives)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
 			if(tile_name == "Sprite15"):
 				lives += 1
+				score += 1000
 				$HBoxContainer/Lives/Current_Lives.text = str(lives)
+				$HBoxContainer/Score/Current_Score.text = str(score)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
 			if(tile_name == "Sprite14"):
+				score += 1000
+				$HBoxContainer/Score/Current_Score.text = str(score)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -138,6 +148,8 @@ func _physics_process(delta):
 				#TODO: setup functionality for power-up
 				
 			if(tile_name == "Sprite18"):
+				score += 1000
+				$HBoxContainer/Score/Current_Score.text = str(score)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -145,6 +157,8 @@ func _physics_process(delta):
 				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")):
+				score += 50
+				$HBoxContainer/Score/Current_Score.text = str(score)
 				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
 				collision.collider.set_cellv(tile_pos, new_id)
 				
