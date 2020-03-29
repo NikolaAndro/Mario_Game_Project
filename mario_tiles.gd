@@ -38,19 +38,21 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite6"))
 			if(mainData[i][j] == 'd'):
-				print("multi-coin box - c1")
+				tile_type = "Multi-coin - color 1"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite26"))
 			if(mainData[i][j] == 'e'):
 				tile_type = "Power Up - c1"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite14"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite27"))
 			if(mainData[i][j] == 'f'):
 				tile_type = "star - c1"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite18"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite28"))
 			if(mainData[i][j] == 'g'):
 				tile_type = "1up - c1"
 				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite15"))
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite29"))
 			if(mainData[i][j] == 'h'):
 				tile_type = "Dead Box - c1"
 				tile_pos = Vector2(j,i)
@@ -140,11 +142,17 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite12"))
 			if(mainData[i][j] == 'F'):
-				print("hidden PowerUp")
+				tile_type = "hidden PowerUp"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite30"))
 			if(mainData[i][j] == 'G'):
-				print("hideen Star")
+				tile_type = "hidden Star"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite31"))
 			if(mainData[i][j] == 'H'):
-				print("Hidden 1up")
+				tile_type = "Hidden 1up"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite32"))
 			if(mainData[i][j] == 'I'):
 				print("Platform - Falling")
 			if(mainData[i][j] == 'J'):
