@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Mario-assets/Blocks/NES - Super Mario Bros - Item and Brick Blocks (1).png" type="Texture" id=1]
 [ext_resource path="res://Mario-assets/Other/NES - Super Mario Bros - Tileset.png" type="Texture" id=2]
 [ext_resource path="res://mario_tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://Mario-assets/Items/NES - Super Mario Bros - Items Objects and NPCs.png" type="Texture" id=4]
+[ext_resource path="res://Mario-assets/Other/Overworld_mountain.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -355,6 +356,15 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite29/StaticBody2D"]
 shape = SubResource( 5 )
+
+[node name="Sprite33" type="Sprite" parent="."]
+position = Vector2( 296, 184 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 272, 112, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite30" type="Sprite" parent="."]
 modulate = Color( 0.00392157, 0.00392157, 0.00392157, 0 )

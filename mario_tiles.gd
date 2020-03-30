@@ -108,7 +108,9 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite22"))
 			if(mainData[i][j] == '_'):
-				print("blank")
+				tile_type = "blank"
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite33"))
 			if(mainData[i][j] == '1'):
 				print("Enemy 1")
 			if(mainData[i][j] == '2'):
