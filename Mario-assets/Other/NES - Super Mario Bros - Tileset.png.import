@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NES - Super Mario Bros - Tileset.png-67300a09a5ae17b2dfb3d0d3273a4f94.stex"
+path="res://.import/NES - Super Mario Bros - Tileset.png-69317c6c87aa11c3755135f820ac4735.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Mario-assets/Other/NES - Super Mario Bros - Tileset.png"
-dest_files=[ "res://.import/NES - Super Mario Bros - Tileset.png-67300a09a5ae17b2dfb3d0d3273a4f94.stex" ]
+source_file="res://Mario-assets/Other/NES - Super Mario Bros - Tileset.png"
+dest_files=[ "res://.import/NES - Super Mario Bros - Tileset.png-69317c6c87aa11c3755135f820ac4735.stex" ]
 
 [params]
 

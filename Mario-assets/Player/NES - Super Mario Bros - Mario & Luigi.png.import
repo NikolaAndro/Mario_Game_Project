@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NES - Super Mario Bros - Mario & Luigi.png-a8754541849d11134cf82a05dcd99453.stex"
+path="res://.import/NES - Super Mario Bros - Mario & Luigi.png-04b81664f6ff90d436efce59de0e5126.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Mario-assets/Player/NES - Super Mario Bros - Mario & Luigi.png"
-dest_files=[ "res://.import/NES - Super Mario Bros - Mario & Luigi.png-a8754541849d11134cf82a05dcd99453.stex" ]
+source_file="res://Mario-assets/Player/NES - Super Mario Bros - Mario & Luigi.png"
+dest_files=[ "res://.import/NES - Super Mario Bros - Mario & Luigi.png-04b81664f6ff90d436efce59de0e5126.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NES - Super Mario Bros - Item and Brick Blocks (1).png-12241af1eac77f3818a453068f8dd717.stex"
+path="res://.import/NES - Super Mario Bros - Item and Brick Blocks (1).png-9d6efd4982c57f6aeeea92d9d5b5e3bd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Mario-assets/Blocks/NES - Super Mario Bros - Item and Brick Blocks (1).png"
-dest_files=[ "res://.import/NES - Super Mario Bros - Item and Brick Blocks (1).png-12241af1eac77f3818a453068f8dd717.stex" ]
+source_file="res://Mario-assets/Blocks/NES - Super Mario Bros - Item and Brick Blocks (1).png"
+dest_files=[ "res://.import/NES - Super Mario Bros - Item and Brick Blocks (1).png-9d6efd4982c57f6aeeea92d9d5b5e3bd.stex" ]
 
 [params]
 
