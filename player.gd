@@ -165,13 +165,13 @@ func _physics_process(delta):
 				$HBoxContainer/Score/Current_Score.text = str(score)
 				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
 				collision.collider.set_cellv(tile_pos, new_id)
-				
+
 			if(tile_name == "Sprite20"): # flag middle
 				score += 500
 				$HBoxContainer/Score/Current_Score.text = str(score)
 				get_node("BodyCol").disabled = true
 				queue_free()
-				
+
 			if(tile_name == "Sprite22"): # flag top
 				score += 1000
 				$HBoxContainer/Score/Current_Score.text = str(score)
