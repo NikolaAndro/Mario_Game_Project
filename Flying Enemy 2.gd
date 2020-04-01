@@ -7,7 +7,7 @@ const FLOOR = Vector2(0,-1)
 const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
-var direction = 1
+var direction = -1
 var dropped = 0
 var stunned = 1
 
@@ -60,20 +60,20 @@ func _on_KillDetector_area_entered(area):
 		direction = direction
 	else:
 		if direction == -1:
-			$AnimatedSprite.flip_h = false
+			$AnimatedSprite.flip_h = true
 			direction = 1
 		else:
-			$AnimatedSprite.flip_h = true
+			$AnimatedSprite.flip_h = false
 			direction = -1
 		
 
 
 func _on_KillDetector_body_entered(body):
 	if direction == -1:
-		$AnimatedSprite.flip_h = false
+		$AnimatedSprite.flip_h = true
 		direction = 1
 	else:
-		$AnimatedSprite.flip_h = true
+		$AnimatedSprite.flip_h = false
 		direction = -1
 
 

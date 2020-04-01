@@ -12,6 +12,7 @@ var score = 0
 var coins = 0
 var counter = 300
 export var stomp_impulse = 1000.0
+var alive = 1
 
 func _ready():
 	$HBoxContainer/Time/Current_Time.text = str(counter)
@@ -41,7 +42,6 @@ func _timeout():
 		velocity.x = -SPEED * 2
 	
 func _physics_process(delta):
-	
 	
 	if Input.is_action_pressed("ui_right"):
 		direction = 1
@@ -269,3 +269,5 @@ func _on_DeathDetector_area_entered(area):
 			return
 		get_node("BodyCol").disabled = true
 		queue_free()
+		get_tree().change_scene("TitleScreen.tscn")
+		#get_tree().reload_current_scene()
