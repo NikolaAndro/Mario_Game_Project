@@ -20,9 +20,6 @@ func _ready():
 	$HBoxContainer/Lives/Current_Lives.text = str(lives)
 	$HBoxContainer/Score/Current_Score.text = str(score)
 	$HBoxContainer/Coins/Current_Coins.text = str(coins)
-	
-
-
 
 var timer
 func _init():
