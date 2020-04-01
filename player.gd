@@ -21,9 +21,8 @@ func _ready():
 	$HBoxContainer/Score/Current_Score.text = str(score)
 	$HBoxContainer/Coins/Current_Coins.text = str(coins)
 	
-func _on_Timer_timeout():
-	counter -= 1
-	$HBoxContainer/Time/Current_Time.text = str(counter)
+
+
 
 var timer
 func _init():
@@ -271,3 +270,8 @@ func _on_DeathDetector_area_entered(area):
 		queue_free()
 		get_tree().change_scene("TitleScreen.tscn")
 		#get_tree().reload_current_scene()
+
+
+func _on_Timer_timeout():
+	counter -= 1
+	$HBoxContainer/Time/Current_Time.text = str(counter)
