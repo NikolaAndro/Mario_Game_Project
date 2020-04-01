@@ -26,10 +26,10 @@ offset = Vector2( 0, -36 )
 current = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="player"]
-margin_left = -317.0
-margin_top = -178.0
-margin_right = 318.0
-margin_bottom = -128.0
+margin_left = -293.0
+margin_top = -238.0
+margin_right = 342.0
+margin_bottom = -188.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

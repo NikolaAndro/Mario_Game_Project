@@ -8,22 +8,21 @@ func _ready():
 
 func setMap():
 	_tileset = get_tileset()
-	var tile_pos  = Vector2()
-	var mainData = {}
-	var numRows = 0
-	var numCols = 0
-	var count = 0
-	var tile_type
+	var mainData = []
+	var tile_pos = Vector2()
+	var tile_type = ""
 	var file = File.new()
+
 	file.open(path, file.READ)
 	while !file.eof_reached():
-		var dataSet = Array(file.get_csv_line())
-		numRows += 1
-		mainData[mainData.size()] = dataSet;
+		mainData.append(Array(file.get_csv_line()))
 	file.close()
-	numCols = mainData[0].size() -1
-	numRows -= 1
-	for i in numRows:
+
+	mainData.pop_back()
+	var numRows = mainData.size()
+	var numCols = mainData[0].size()
+
+	for i in range(numRows-1, 0, -1):
 		for j in numCols:
 			if(mainData[i][j] == 'a'):
 				tile_type = "Stone - color 1"

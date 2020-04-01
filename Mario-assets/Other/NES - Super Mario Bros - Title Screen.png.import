@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NES - Super Mario Bros - Title Screen.png-1db61729f2288a995f56b32ea06074fe.stex"
+path="res://.import/NES - Super Mario Bros - Title Screen.png-b4f69768fddcad5df4e0de4bc62d9d78.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Mario-assets/Other/NES - Super Mario Bros - Title Screen.png"
-dest_files=[ "res://.import/NES - Super Mario Bros - Title Screen.png-1db61729f2288a995f56b32ea06074fe.stex" ]
+source_file="res://Mario-assets/Other/NES - Super Mario Bros - Title Screen.png"
+dest_files=[ "res://.import/NES - Super Mario Bros - Title Screen.png-b4f69768fddcad5df4e0de4bc62d9d78.stex" ]
 
 [params]
 

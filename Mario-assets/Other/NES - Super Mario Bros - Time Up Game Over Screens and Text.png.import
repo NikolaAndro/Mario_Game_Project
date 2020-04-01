@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NES - Super Mario Bros - Time Up Game Over Screens and Text.png-73861b2b2f9435e0df05af5ce54a444c.stex"
+path="res://.import/NES - Super Mario Bros - Time Up Game Over Screens and Text.png-0d713ad03197a1375b1ce6ed96ac4832.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Mario-assets/Other/NES - Super Mario Bros - Time Up Game Over Screens and Text.png"
-dest_files=[ "res://.import/NES - Super Mario Bros - Time Up Game Over Screens and Text.png-73861b2b2f9435e0df05af5ce54a444c.stex" ]
+source_file="res://Mario-assets/Other/NES - Super Mario Bros - Time Up Game Over Screens and Text.png"
+dest_files=[ "res://.import/NES - Super Mario Bros - Time Up Game Over Screens and Text.png-0d713ad03197a1375b1ce6ed96ac4832.stex" ]
 
 [params]
 
