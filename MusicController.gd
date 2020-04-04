@@ -16,3 +16,9 @@ func play(track_url : String):
 
 func stop():
 	_player.stop()
+	
+func get_playback_position():
+	return _player.get_playback_position()
+	
+func seek(time_paused):
+	_player.seek(time_paused)
