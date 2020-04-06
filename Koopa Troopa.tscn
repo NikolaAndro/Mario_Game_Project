@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Koopa Troopa.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Koopa Troopa.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.23827
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.21876, 0.447556 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2.00544, 6.00299 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 2.22473, 6.44158 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 9.82735
+
+[node name="Koopa Troopa" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 19.5172, 15.0605 )
+frames = ExtResource( 1 )
+animation = "stunned"
+
+[node name="BodyCol" type="CollisionShape2D" parent="."]
+position = Vector2( 19.5062, 15.426 )
+shape = SubResource( 1 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.00784314, 0.129412, 0.462745, 1 )
+position = Vector2( 19.7522, 1.42856 )
+shape = SubResource( 2 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+
+[node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.00392157, 0.501961, 0.0823529, 1 )
+position = Vector2( 12.9383, 15.3505 )
+shape = SubResource( 3 )
+
+[node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.00784314, 0.533333, 0.129412, 1 )
+position = Vector2( 25.9497, 15.5698 )
+shape = SubResource( 4 )
+
+[node name="Body" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="FireballCol" type="CollisionShape2D" parent="Body"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 19.6564, 15.3636 )
+shape = SubResource( 5 )
+[connection signal="ready" from="." to="." method="_on_Ground_Enemy_2_ready"]
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
+[connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]
