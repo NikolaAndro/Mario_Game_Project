@@ -18,3 +18,11 @@ func _physics_process(delta):
 	if $MarginContainer/VBoxContainer/Quit.is_hovered() == true:
 		$MarginContainer/VBoxContainer/Quit.grab_focus()
 	
+
+
+func _on_Play_pressed():
+	get_tree().change_scene("res://StageOne.tscn")
+
+
+func _on_Quit_pressed():
+	get_tree().quit()
