@@ -1,7 +1,7 @@
 extends KinematicBody2D
 const SPEED = 60
 const GRAVITY = 10
-const JUMP_POWER = -250
+const JUMP_POWER = -225
 const FLOOR = Vector2(0,-1)
 const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
@@ -13,6 +13,8 @@ var coins = 0
 var counter = 300
 export var stomp_impulse = 1000.0
 var alive = 1
+var jump_timer = 0
+var sprint_timer = 0
 
 func _ready():
 	$HBoxContainer/Time/Current_Time.text = str(counter)
@@ -21,36 +23,33 @@ func _ready():
 	$HBoxContainer/Score/Current_Score.text = str(score)
 	$HBoxContainer/Coins/Current_Coins.text = str(coins)
 
-var timer
-func _init():
-	timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 0.25
-	timer.connect("timeout", self, "_timeout")
-	
-func _timeout():
-	if Input.is_action_pressed("ui_up"):
-		velocity.y = JUMP_POWER
-		timer.stop()
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
-		velocity.x = SPEED * 2
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
-		velocity.x = -SPEED * 2
-	
+
 func _physics_process(delta):
-	
+	jump_timer += 1
 	if Input.is_action_pressed("ui_right"):
+		if 	direction == -1:
+			sprint_timer = 0
 		direction = 1
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = SPEED
+			sprint_timer = 0
+		elif sprint_timer < 90:
+			velocity.x = SPEED + (SPEED*sprint_timer)/90
+			sprint_timer += 1
 		$AnimatedSprite.play("run")
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
-	elif Input.is_action_pressed("ui_left"):	
+	elif Input.is_action_pressed("ui_left"):
+		if 	direction == 1:
+			sprint_timer = 0
 		direction = -1
 		if !Input.is_action_pressed("ui_down"):
 			velocity.x = -SPEED
+			sprint_timer = 0
+		elif sprint_timer < 90:
+			velocity.x = -SPEED - (SPEED*sprint_timer)/90
+			sprint_timer += 1
 		$AnimatedSprite.flip_h = true
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
@@ -59,14 +58,20 @@ func _physics_process(delta):
 		velocity.x = 0
 		if on_ground:
 			$AnimatedSprite.play("idle")
+			
 	#jumping 
-	if Input.is_action_just_pressed("ui_up") and on_ground:
-		var sfx = "jumping_small"
-		$AudioStreamPlayer2D.playSound(sfx)
-		velocity.y = JUMP_POWER
+	if Input.is_action_pressed("ui_up") and jump_timer < 90:
+		if Input.is_action_pressed("ui_up") and on_ground:
+			var sfx = "jumping_small"
+			$AudioStreamPlayer2D.playSound(sfx)
+		velocity.y = JUMP_POWER - (jump_timer*JUMP_POWER)/90
 		on_ground = false
-		timer.start()
-	
+		jump_timer += 1
+	elif on_ground == false:
+		jump_timer = 90
+	else:
+		jump_timer = 0
+
 	#fireball
 	if Input.is_action_just_pressed("ui_down"):
 		var sfx = "fireball"
@@ -82,7 +87,6 @@ func _physics_process(delta):
 		else:
 			fireball.position.x = $Position2D.global_position.x - 10
 			fireball.position.y = $Position2D.global_position.y
-		timer.start()
 	velocity.y += GRAVITY 
 
 	if is_on_floor():
