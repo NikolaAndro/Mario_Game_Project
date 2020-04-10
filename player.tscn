@@ -1,8 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://AudioStreamPlayer2D.gd" type="Script" id=3]
+[ext_resource path="res://Mario-assets/Player/level_up_run_2.png" type="Texture" id=4]
+[ext_resource path="res://Mario-assets/Player/level_up_jump.png" type="Texture" id=5]
+[ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=6]
+[ext_resource path="res://Mario-assets/Player/level_up.png" type="Texture" id=7]
+[ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
@@ -20,8 +25,45 @@ extents = Vector2( 5.09984, 6.57749 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 6.29891, 4.02937 )
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "disabled",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "RUN_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "FALL_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IDLE_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "JUMP_level_up",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 1.03203, 24.139 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 0.746933, 24.3649 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 11.3168, 0.89278 )
+
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 23.1671, 8.7591 )
+position = Vector2( 22.0627, 1.97459 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -31,11 +73,12 @@ __meta__ = {
 position = Vector2( 25, -7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0.188669, -0.377357 )
-scale = Vector2( 2, 2 )
+position = Vector2( -10.2079, -12.3191 )
+scale = Vector2( 0.419398, 0.438332 )
 frames = ExtResource( 1 )
-animation = "idle"
+animation = "disabled"
 playing = true
+centered = false
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -69,5 +112,32 @@ shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource( 3 )
+
+[node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -13.5975, -45.9583 )
+scale = Vector2( 0.447944, 0.466131 )
+frames = SubResource( 6 )
+animation = "IDLE_level_up"
+centered = false
+
+[node name="DeathDetector_level_up" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
+position = Vector2( -15.7752, -12.4447 )
+shape = SubResource( 7 )
+
+[node name="RightCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0117647, 0.435294, 0.27451, 1 )
+position = Vector2( 17.4029, -10.0615 )
+shape = SubResource( 8 )
+
+[node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
+position = Vector2( 1.88848, -46.0928 )
+shape = SubResource( 9 )
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
+[connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]

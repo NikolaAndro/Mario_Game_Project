@@ -21,6 +21,7 @@ run/main_scene="res://TitleScreen.tscn"
 [autoload]
 
 MusicController="*res://MusicController.tscn"
+Globals="*res://Global.gd"
 
 [display]
 

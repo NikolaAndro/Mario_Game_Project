@@ -46,13 +46,16 @@ func _on_StompDetector_body_entered(body):
 		dropped = 1
 
 func _on_KillDetector_area_entered(area):
-	if direction == -1:
-		$AnimatedSprite.flip_h = true
-		direction = 1
+	if get_node("/root/Globals").invincible == 0:
+		if direction == -1:
+			$AnimatedSprite.flip_h = true
+			direction = 1
+		else:
+			$AnimatedSprite.flip_h = false
+			direction = -1
 	else:
-		$AnimatedSprite.flip_h = false
-		direction = -1
-		
+		if "DeathDetector" in area.name:
+			queue_free()
 
 
 func _on_KillDetector_body_entered(body):

@@ -3,8 +3,8 @@
 [ext_resource path="res://ground_enemy2.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Ground Enemy 2.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 8.23827
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 7.72323, 7.85453 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8.21876, 0.447556 )
@@ -29,8 +29,8 @@ frames = ExtResource( 1 )
 animation = "stunned"
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
-position = Vector2( 19.5062, 15.426 )
-shape = SubResource( 1 )
+position = Vector2( 19.6309, 14.0955 )
+shape = SubResource( 6 )
 
 [node name="StompDetector" type="Area2D" parent="."]
 collision_layer = 2
@@ -44,12 +44,12 @@ shape = SubResource( 2 )
 
 [node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
 modulate = Color( 0.00392157, 0.501961, 0.0823529, 1 )
-position = Vector2( 12.9383, 15.3505 )
+position = Vector2( 12.9383, 14.4455 )
 shape = SubResource( 3 )
 
 [node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
 modulate = Color( 0.00784314, 0.533333, 0.129412, 1 )
-position = Vector2( 25.9497, 15.5698 )
+position = Vector2( 26.1194, 14.7214 )
 shape = SubResource( 4 )
 
 [node name="Body" type="Area2D" parent="."]

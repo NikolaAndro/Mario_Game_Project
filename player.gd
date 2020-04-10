@@ -15,7 +15,20 @@ export var stomp_impulse = 1000.0
 var alive = 1
 var jump_timer = 0
 var sprint_timer = 0
+var health_level = 1
 
+
+var timer
+func _init():
+	timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = 100
+	timer.connect("timeout", self, "_timeout")
+	
+func _timeout():
+	get_node("/root/Globals").invincible = 0
+	timer.stop()
+	
 func _ready():
 	$HBoxContainer/Time/Current_Time.text = str(counter)
 	$HBoxContainer/World/Current_World.text = "1-1"
@@ -36,10 +49,16 @@ func _physics_process(delta):
 		elif sprint_timer < 90:
 			velocity.x = SPEED + (SPEED*sprint_timer)/90
 			sprint_timer += 1
-		$AnimatedSprite.play("run")
+		if(health_level == 1):
+			$AnimatedSprite.play("run")
+			$LevelUpAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("RUN_level_up")
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
+		$LevelUpAnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):
 		if 	direction == 1:
 			sprint_timer = 0
@@ -51,13 +70,24 @@ func _physics_process(delta):
 			velocity.x = -SPEED - (SPEED*sprint_timer)/90
 			sprint_timer += 1
 		$AnimatedSprite.flip_h = true
+		$LevelUpAnimatedSprite.flip_h = true
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
-		$AnimatedSprite.play("run")
+		if(health_level == 1):
+			$AnimatedSprite.play("run")
+			$LevelUpAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("RUN_level_up")
 	else:
 		velocity.x = 0
 		if on_ground:
-			$AnimatedSprite.play("idle")
+			if(health_level == 1):
+				$AnimatedSprite.play("idle")
+				$LevelUpAnimatedSprite.play("disabled")
+			elif(health_level == 2):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("IDLE_level_up")
 			
 	#jumping 
 	if Input.is_action_pressed("ui_up") and jump_timer < 90:
@@ -94,10 +124,25 @@ func _physics_process(delta):
 	else:
 		on_ground = false
 		if velocity.y < 0:
-			$AnimatedSprite.play("jump")
+			if(health_level == 1):
+				$AnimatedSprite.play("jump")
+				$LevelUpAnimatedSprite.play("disabled")
+			elif(health_level == 2):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("JUMP_level_up")
 		else:
-			$AnimatedSprite.play("fall")
+			if(health_level == 1):
+				$AnimatedSprite.play("fall")
+				$LevelUpAnimatedSprite.play("disabled")
+			elif(health_level == 2):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("FALL_level_up")
 			
+	if position.y > 240:
+		get_node("BodyCol").disabled = true
+		queue_free()
+		get_tree().change_scene("TitleScreen.tscn")
+		
 	velocity = move_and_slide(velocity, FLOOR)
 	
 	#code to deal with block-player interactions
@@ -165,6 +210,12 @@ func _physics_process(delta):
 				
 			if(tile_name == "Sprite14"): # PowerUp
 				score += 1000
+				if health_level == 1:
+					health_level += 1
+				get_node("DeathDetector").set_collision_mask(0)
+				get_node("DeathDetector_level_up").set_collision_mask(3)
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("IDLE_level_up")
 				$HBoxContainer/Score/Current_Score.text = str(score)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
@@ -176,6 +227,8 @@ func _physics_process(delta):
 				
 			if(tile_name == "Sprite18"): #star
 				score += 1000
+				get_node("/root/Globals").invincible = 1
+				timer.start()
 				$HBoxContainer/Score/Current_Score.text = str(score)
 				item_tile_pos = Vector2(tile_pos.x, tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
@@ -338,17 +391,36 @@ func _on_StepDetector_area_entered(area):
 
 
 func _on_DeathDetector_area_entered(area):
-	if "fireball" in area.name:
-		on_ground = on_ground
-	else:
-		if area.global_position.y > get_node("DeathDetector").global_position.y:
-			return
-		get_node("BodyCol").disabled = true
-		queue_free()
-		get_tree().change_scene("TitleScreen.tscn")
+	if get_node("/root/Globals").invincible == 0:
+		if health_level == 1:
+			if "fireball" in area.name:
+				on_ground = on_ground
+			else:
+				if area.global_position.y > get_node("DeathDetector").global_position.y:
+					return
+				health_level -=1
+				get_node("BodyCol").disabled = true
+				queue_free()
+				get_tree().change_scene("TitleScreen.tscn")
+	
+			
+		
+		
 		#get_tree().reload_current_scene()
 
 
 func _on_Timer_timeout():
 	counter -= 1
 	$HBoxContainer/Time/Current_Time.text = str(counter)
+
+
+func _on_DeathDetector_level_up_area_entered(area):
+	if health_level == 2:
+		if "fireball" in area.name:
+			on_ground = on_ground
+		else:
+			if area.global_position.y > get_node("DeathDetector").global_position.y:
+				return
+			health_level -= 1
+		get_node("DeathDetector").set_collision_mask(3)
+		get_node("DeathDetector_level_up").set_collision_mask(0)
