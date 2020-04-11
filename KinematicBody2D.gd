@@ -29,7 +29,7 @@ func _physics_process(delta):
 				position.x += 1
 				direction *= -1
 		else:
-			falling += 1
+			falling += 1 
 			
 	if attack == 80:
 		var enemyAttack = ENEMYATTACK.instance()

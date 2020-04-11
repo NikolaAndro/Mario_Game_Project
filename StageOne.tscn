@@ -147,13 +147,13 @@ format = 1
 script = ExtResource( 9 )
 
 [node name="Ground Enemy 2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 63.8535, 111.519 )
+position = Vector2( 128.381, 161.33 )
 
 [node name="Flying Enemy 2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 131.229, 96.9287 )
 
 [node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 44.9813, 118.583 )
+position = Vector2( 40.0757, 139.337 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 65.245, 93.9824 )

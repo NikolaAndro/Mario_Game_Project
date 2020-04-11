@@ -13,7 +13,7 @@ var falling = 0
 	
 func _on_Ground_Enemy_3_ready():
 	$AnimatedSprite.play("run")
-	
+	$AnimatedSprite.flip_h = true
 	
 var timer
 func _init():

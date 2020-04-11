@@ -6,7 +6,7 @@
 [ext_resource path="res://Mario-assets/Player/level_up_run_2.png" type="Texture" id=4]
 [ext_resource path="res://Mario-assets/Player/level_up_jump.png" type="Texture" id=5]
 [ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=6]
-[ext_resource path="res://Mario-assets/Player/level_up.png" type="Texture" id=7]
+[ext_resource path="res://Mario-assets/Player/level_up_tryyyy.png" type="Texture" id=7]
 [ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -32,6 +32,11 @@ animations = [ {
 "name": "disabled",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IDLE_level_up",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "RUN_level_up",
@@ -39,17 +44,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "FALL_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IDLE_level_up",
+"name": "JUMP_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "JUMP_level_up",
+"name": "FALL_level_up",
 "speed": 5.0
 } ]
 
@@ -92,7 +92,7 @@ position = Vector2( -0.0369835, 10.1175 )
 shape = SubResource( 2 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
-position = Vector2( 0.149891, 0 )
+position = Vector2( 0.149891, 1.58154 )
 collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
@@ -114,15 +114,14 @@ shape = SubResource( 5 )
 script = ExtResource( 3 )
 
 [node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -13.5975, -45.9583 )
+position = Vector2( -13.1456, -41.8915 )
 scale = Vector2( 0.447944, 0.466131 )
 frames = SubResource( 6 )
 animation = "IDLE_level_up"
 centered = false
 
 [node name="DeathDetector_level_up" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
@@ -136,8 +135,9 @@ shape = SubResource( 8 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
-position = Vector2( 1.88848, -46.0928 )
+position = Vector2( 0.860381, -42.1089 )
 shape = SubResource( 9 )
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]
+[connection signal="body_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_body_entered"]

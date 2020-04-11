@@ -22,7 +22,7 @@ var timer
 func _init():
 	timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 100
+	timer.wait_time = 1000
 	timer.connect("timeout", self, "_timeout")
 	
 func _timeout():
@@ -35,6 +35,8 @@ func _ready():
 	$HBoxContainer/Lives/Current_Lives.text = str(lives)
 	$HBoxContainer/Score/Current_Score.text = str(score)
 	$HBoxContainer/Coins/Current_Coins.text = str(coins)
+	get_node("DeathDetector_level_up").set_collision_mask(0)
+	get_node("DeathDetector_level_up").set_collision_layer(0)
 
 
 func _physics_process(delta):
@@ -181,6 +183,8 @@ func _physics_process(delta):
 				yield(get_tree().create_timer(0.25), "timeout")
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item)
+			
+			
 				
 			if(tile_name == "Sprite12"): # coin
 				coins += 1
@@ -213,7 +217,9 @@ func _physics_process(delta):
 				if health_level == 1:
 					health_level += 1
 				get_node("DeathDetector").set_collision_mask(0)
+				get_node("DeathDetector").set_collision_layer(0)
 				get_node("DeathDetector_level_up").set_collision_mask(3)
+				get_node("DeathDetector_level_up").set_collision_layer(3)
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
 				$HBoxContainer/Score/Current_Score.text = str(score)
@@ -402,6 +408,7 @@ func _on_DeathDetector_area_entered(area):
 				get_node("BodyCol").disabled = true
 				queue_free()
 				get_tree().change_scene("TitleScreen.tscn")
+				
 	
 			
 		
@@ -415,12 +422,26 @@ func _on_Timer_timeout():
 
 
 func _on_DeathDetector_level_up_area_entered(area):
-	if health_level == 2:
-		if "fireball" in area.name:
-			on_ground = on_ground
-		else:
-			if area.global_position.y > get_node("DeathDetector").global_position.y:
-				return
-			health_level -= 1
-		get_node("DeathDetector").set_collision_mask(3)
-		get_node("DeathDetector_level_up").set_collision_mask(0)
+	if get_node("/root/Globals").invincible == 0:
+		if health_level == 2:
+			if "fireball" in area.name:
+				on_ground = on_ground
+			else:
+				if area.global_position.y > get_node("DeathDetector").global_position.y:
+					return
+				health_level -= 1
+			get_node("DeathDetector").set_collision_mask(3)
+			get_node("DeathDetector").set_collision_layer(3)
+			get_node("DeathDetector_level_up").set_collision_mask(0)
+			get_node("DeathDetector_level_up").set_collision_layer(0)
+			
+
+
+#func _on_DeathDetector_level_up_body_entered(body):
+#	var new_id
+#	var tile_pos = body.world_to_map(position)
+#	$HBoxContainer/Score/Current_Score.text = str(score)
+#	new_id = body.tile_set.find_tile_by_name("blank_tile") #block is set to empty
+#	body.set_cellv(tile_pos, new_id)
+#	var sfx = "break_block"
+#	$AudioStreamPlayer2D.playSound(sfx)

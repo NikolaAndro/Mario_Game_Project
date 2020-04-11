@@ -62,6 +62,9 @@ position = Vector2( 22.7131, 154.081 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 80, 112, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite"]
 position = Vector2( 0.613892, -0.613892 )

@@ -7,7 +7,7 @@ const FLOOR = Vector2(0,-1)
 const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
-var direction = 1
+var direction = -1
 var stunned = 1
 var falling = 0
 
@@ -49,7 +49,7 @@ func _physics_process(delta):
 		on_ground = false
 			
 		
-	velocity = move_and_slide(velocity, FLOOR)
+	
 
 func _on_StompDetector_body_entered(body):
 	if stunned == 0:
