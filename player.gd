@@ -156,13 +156,18 @@ func _physics_process(delta):
 	var item
 	var item_tile_pos
 	var item_collision
+	
+
 	for i in range(get_slide_count()):
 		collision = get_slide_collision(i)
+		
 		if collision.collider is TileMap:
 			tile_pos = collision.collider.world_to_map(position)
 			tile_pos -= collision.normal
 			tile_id = collision.collider.get_cellv(tile_pos)
 			tile_name = collision.collider.tile_set.tile_get_name(tile_id)
+			
+			#if some enemy is colliding with the same block kill the enemy
 			
 			if(tile_name == "Sprite" and Input.is_action_pressed("ui_up")): #? block - coin
 				coins += 1
@@ -215,6 +220,8 @@ func _physics_process(delta):
 			if(tile_name == "Sprite14"): # PowerUp
 				score += 1000
 				if health_level == 1:
+					get_node("BodyCol").scale.x = 1
+					get_node("BodyCol").scale.y = 1
 					health_level += 1
 				get_node("DeathDetector").set_collision_mask(0)
 				get_node("DeathDetector").set_collision_layer(0)
@@ -429,19 +436,14 @@ func _on_DeathDetector_level_up_area_entered(area):
 			else:
 				if area.global_position.y > get_node("DeathDetector").global_position.y:
 					return
+				get_node("BodyCol").scale.x = 0.863
+				get_node("BodyCol").scale.y = 0.753
 				health_level -= 1
-			get_node("DeathDetector").set_collision_mask(3)
-			get_node("DeathDetector").set_collision_layer(3)
-			get_node("DeathDetector_level_up").set_collision_mask(0)
-			get_node("DeathDetector_level_up").set_collision_layer(0)
+				get_node("DeathDetector").set_collision_mask(3)
+				get_node("DeathDetector").set_collision_layer(3)
+				get_node("DeathDetector_level_up").set_collision_mask(0)
+				get_node("DeathDetector_level_up").set_collision_layer(0)
 			
 
 
-#func _on_DeathDetector_level_up_body_entered(body):
-#	var new_id
-#	var tile_pos = body.world_to_map(position)
-#	$HBoxContainer/Score/Current_Score.text = str(score)
-#	new_id = body.tile_set.find_tile_by_name("blank_tile") #block is set to empty
-#	body.set_cellv(tile_pos, new_id)
-#	var sfx = "break_block"
-#	$AudioStreamPlayer2D.playSound(sfx)
+

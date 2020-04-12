@@ -11,19 +11,19 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
-height = 5.18467
+height = 18.3538
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.68497, 4.40398 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 5.2497, 6.42761 )
+extents = Vector2( 1.32264, 11.9803 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 5.09984, 6.57749 )
+extents = Vector2( 1.40049, 12.5068 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 6.29891, 4.02937 )
+extents = Vector2( 8.33556, 1.18825 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -37,9 +37,9 @@ animations = [ {
 "name": "IDLE_level_up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "RUN_level_up",
+"name": "FALL_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -47,9 +47,9 @@ animations = [ {
 "name": "JUMP_level_up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "FALL_level_up",
+"name": "RUN_level_up",
 "speed": 5.0
 } ]
 
@@ -63,24 +63,25 @@ extents = Vector2( 0.746933, 24.3649 )
 extents = Vector2( 11.3168, 0.89278 )
 
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 22.0627, 1.97459 )
+position = Vector2( 22.6623, -1.77265 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 25, -7 )
+position = Vector2( 22.0882, -11.5295 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -10.2079, -12.3191 )
-scale = Vector2( 0.419398, 0.438332 )
+position = Vector2( -10.0726, -16.3774 )
+scale = Vector2( 0.419398, 0.517779 )
 frames = ExtResource( 1 )
-animation = "disabled"
+animation = "idle"
 playing = true
 centered = false
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.863, 0.753 )
 shape = SubResource( 1 )
 
 [node name="StepDetector" type="Area2D" parent="."]
@@ -88,7 +89,7 @@ monitorable = false
 
 [node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
 modulate = Color( 0, 0.0941176, 0.701961, 1 )
-position = Vector2( -0.0369835, 10.1175 )
+position = Vector2( -0.0369835, 11.1997 )
 shape = SubResource( 2 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
@@ -97,25 +98,25 @@ collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.109804, 0.619608, 0.00392157, 1 )
-position = Vector2( -8.99343, -1.04923 )
+position = Vector2( -12.3753, 0.0329767 )
 shape = SubResource( 3 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0156863, 0.588235, 0.145098, 1 )
-position = Vector2( 8.24398, -1.19913 )
+position = Vector2( 12.167, 0.69473 )
 shape = SubResource( 4 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0117647, 0.52549, 0.258824, 1 )
-position = Vector2( -0.449673, -11.8413 )
+position = Vector2( -0.179111, -17.6581 )
 shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource( 3 )
 
 [node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -13.1456, -41.8915 )
-scale = Vector2( 0.447944, 0.466131 )
+position = Vector2( -11.9281, -25.6584 )
+scale = Vector2( 0.379233, 0.386945 )
 frames = SubResource( 6 )
 animation = "IDLE_level_up"
 centered = false
@@ -125,17 +126,17 @@ collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
-position = Vector2( -15.7752, -12.4447 )
+position = Vector2( -14.4224, -0.946283 )
 shape = SubResource( 7 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0117647, 0.435294, 0.27451, 1 )
-position = Vector2( 17.4029, -10.0615 )
+position = Vector2( 15.3738, 0.0841627 )
 shape = SubResource( 8 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
-position = Vector2( 0.860381, -42.1089 )
+position = Vector2( -0.221818, -27.0933 )
 shape = SubResource( 9 )
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
