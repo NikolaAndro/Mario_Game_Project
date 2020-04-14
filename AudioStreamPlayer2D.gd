@@ -13,6 +13,8 @@ var jumping_small = load("res://music/jump_small.wav")
 func _ready():
 	pass # Replace with function body.
 
+#this audio stream player is specifically used for sound effects
+#this function uses essentially a Godot switch case to set the stream based on passed parameter
 func playSound(soundName):
 	match(soundName):
 		"coin":

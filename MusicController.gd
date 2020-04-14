@@ -16,9 +16,11 @@ func play(track_url : String):
 
 func stop():
 	_player.stop()
-	
+
+#helper function to help store a position within the track
 func get_playback_position():
 	return _player.get_playback_position()
-	
+
+#sets track posiiton to the time_pasued	
 func seek(time_paused):
 	_player.seek(time_paused)

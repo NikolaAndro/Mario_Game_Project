@@ -32,6 +32,7 @@ func _timeout():
 	timer.stop()
 	
 func _ready():
+	#sets initial label values upon start of level
 	$HBoxContainer/Time/Current_Time.text = str(counter)
 	$HBoxContainer/World/Current_World.text = "1-1"
 	$HBoxContainer/Lives/Current_Lives.text = str(lives)
@@ -157,20 +158,22 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 	
 	#code to deal with block-player interactions
-	var tile_id
-	var collision
-	var tile_name
-	var new_id
-	var item
-	var item_tile_pos
-	var item_collision
+	var tile_id # position of tile
+	var collision #collision info
+	var tile_name #the name of the tile within the tile set
+	var new_id #block changes based on case
+	var item #if there is an item associated with a case, item type is stored here
+	var item_tile_pos #position of the item
+	var item_collision 
 	
 	if on_ground == false:
 		get_node("/root/Globals").tile_pos = Vector2(0,0)
 	
+	#iterate over list of collisions that happen at each frame
 	for i in range(get_slide_count()):
-		collision = get_slide_collision(i)
+		collision = get_slide_collision(i) #info about collision is stored in collision var
 					
+		#check to make sure player is colliding with a tile from tile map
 		if collision.collider is TileMap:
 			get_node("/root/Globals").tile_pos = collision.collider.world_to_map(position)
 			get_node("/root/Globals").tile_pos -= collision.normal
@@ -178,7 +181,8 @@ func _physics_process(delta):
 			tile_name = collision.collider.tile_set.tile_get_name(tile_id)
 			
 			#if some enemy is colliding with the same block kill the enemy
-			
+			#for each case below, all applicable labels and counters must be updated
+			#additionally, sound effects (sfx) will be played on a separate audio channel than the background music
 			
 			if(tile_name == "Sprite" and Input.is_action_pressed("ui_up")): #? block - coin
 				coins += 1
@@ -257,6 +261,9 @@ func _physics_process(delta):
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+				#star music is longer than sfx, so background music is paused 
+				#current position of background music must be stored so it can be resumed
+				#after star music is done playing
 				var temp = MusicController.get_playback_position()
 				MusicController.stop()
 				MusicController.play("res://music/star.wav")
