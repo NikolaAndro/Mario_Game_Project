@@ -23,6 +23,7 @@ func _init():
 	
 func _timeout():
 	stunned = 1
+	get_node("BodyCol").scale.y = 1
 	$AnimatedSprite.play("run")
 		
 		
@@ -48,8 +49,26 @@ func _physics_process(delta):
 	else:
 		on_ground = false
 			
-		
-	
+	#Collision with blocks
+	var tile_id
+	var collision
+	var tile_name
+	var new_id
+	var item
+	var item_tile_pos
+	var item_collision
+
+	for i in range(get_slide_count()):
+		collision = get_slide_collision(i)
+					
+		if collision.collider is TileMap:
+			get_node("/root/Globals").enemy2_tile_pos = collision.collider.world_to_map(position)
+			get_node("/root/Globals").enemy2_tile_pos -= collision.normal
+			get_node("/root/Globals").enemy2_tile_pos.y += 1
+			get_node("/root/Globals").enemy2_tile_pos.x += 1
+			
+	if get_node("/root/Globals").enemy2_tile_pos == get_node("/root/Globals").tile_pos:
+		queue_free()
 
 func _on_StompDetector_body_entered(body):
 	if stunned == 0:
@@ -60,6 +79,7 @@ func _on_StompDetector_body_entered(body):
 	else:
 		stunned = 0
 		$AnimatedSprite.play("stunned")
+		get_node("BodyCol").scale.y = 0.58
 		timer.start()
 
 

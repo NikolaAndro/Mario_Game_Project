@@ -41,6 +41,27 @@ func _physics_process(delta):
 			on_ground = false
 				
 		velocity = move_and_slide(velocity, FLOOR)
+		
+	#Collision with blocks
+	var tile_id
+	var collision
+	var tile_name
+	var new_id
+	var item
+	var item_tile_pos
+	var item_collision
+
+	for i in range(get_slide_count()):
+		collision = get_slide_collision(i)
+					
+		if collision.collider is TileMap:
+			get_node("/root/Globals").enemy1_tile_pos = collision.collider.world_to_map(position)
+			get_node("/root/Globals").enemy1_tile_pos -= collision.normal
+			get_node("/root/Globals").enemy1_tile_pos.y += 1
+			get_node("/root/Globals").enemy1_tile_pos.x += 1
+			
+	if get_node("/root/Globals").enemy1_tile_pos == get_node("/root/Globals").tile_pos:
+		queue_free()
 
 
 func _on_StompDetector_body_entered(body):

@@ -136,7 +136,7 @@ centered = false
 offset = Vector2( 0, -125 )
 
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224.51, 126.001 )
+position = Vector2( 92.436, 33.9265 )
 
 [node name="mario_tiles" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )
@@ -147,16 +147,16 @@ format = 1
 script = ExtResource( 9 )
 
 [node name="Ground Enemy 2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 128.381, 161.33 )
+position = Vector2( 150.268, 183.971 )
 
 [node name="Flying Enemy 2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 131.229, 96.9287 )
+position = Vector2( 124.814, 93.9099 )
 
 [node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 40.0757, 139.337 )
+position = Vector2( 141.584, 193.299 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
-position = Vector2( 65.245, 93.9824 )
+position = Vector2( 193.168, 112.473 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
