@@ -8,6 +8,8 @@ var powerup_appeared = load("res://music/powerup_appears.wav")
 var fireball = load("res://music/fireball.wav")
 var flagpole = load("res://music/flagpole.wav")
 var jumping_small = load("res://music/jump_small.wav")
+var mario_dies = load("res://music/mario_dies.wav")
+var game_over = load("res://music/game_over.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +35,22 @@ func playSound(soundName):
 			stream = flagpole
 		"jumping_small":
 			stream = jumping_small
+		"mario_dies":
+			stream = mario_dies
+		"game_over":
+			stream = game_over
 		
 	play()
 	   
+signal timeout
+
+const TIME_PERIOD = 2.0 # 500ms
+
+var time = 0
+
+func _process(delta):
+	time += delta
+	if time > TIME_PERIOD:
+		emit_signal("timeout")
+		# Reset timer
+		time = 0

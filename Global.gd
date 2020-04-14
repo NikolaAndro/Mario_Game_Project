@@ -1,5 +1,5 @@
 extends Node
-var current_scene = null
+var current_scene
 var invincible = 0
 var tile_pos = Vector2(0,0)#keeps the position of the tile the player colided with
 var enemy1_tile_pos = Vector2(1,1) #keeps the position of the tile the enemy 1 colided with
@@ -11,7 +11,9 @@ var enemy5_tile_pos = Vector2(5,5) #keeps the position of the tile the flying en
 # var a = 2
 # var b = "text"
 
-
+var lives = 3
+var score = 0
+var coins = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

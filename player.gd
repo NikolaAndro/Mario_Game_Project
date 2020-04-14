@@ -7,9 +7,6 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
-var lives = 3
-var score = 0
-var coins = 0
 var counter = 300
 export var stomp_impulse = 1000.0
 var alive = 1
@@ -34,10 +31,10 @@ func _timeout():
 func _ready():
 	#sets initial label values upon start of level
 	$HBoxContainer/Time/Current_Time.text = str(counter)
-	$HBoxContainer/World/Current_World.text = "1-1"
-	$HBoxContainer/Lives/Current_Lives.text = str(lives)
-	$HBoxContainer/Score/Current_Score.text = str(score)
-	$HBoxContainer/Coins/Current_Coins.text = str(coins)
+	$HBoxContainer/World/Current_World.text = get_node("/root/Globals").current_scene
+	$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+	$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
 	
 	
 	
@@ -153,7 +150,13 @@ func _physics_process(delta):
 	if position.y > 240:
 		get_node("BodyCol").disabled = true
 		queue_free()
-		get_tree().change_scene("TitleScreen.tscn")
+		if get_node("/root/Globals").lives > 0:
+			get_node("/root/Globals").lives -=1
+			get_tree().reload_current_scene()
+		else:
+			get_node("/root/Globals").lives = 3
+			get_tree().change_scene("TitleScreen.tscn")
+			
 		
 	velocity = move_and_slide(velocity, FLOOR)
 	
@@ -185,14 +188,14 @@ func _physics_process(delta):
 			#additionally, sound effects (sfx) will be played on a separate audio channel than the background music
 			
 			if(tile_name == "Sprite" and Input.is_action_pressed("ui_up")): #? block - coin
-				coins += 1
-				score += 200
-				if(coins == 100):
-					coins = 0
-					lives += 1
-				$HBoxContainer/Score/Current_Score.text = str(score)
-				$HBoxContainer/Coins/Current_Coins.text = str(coins)
-				$HBoxContainer/Lives/Current_Lives.text = str(lives)
+				get_node("/root/Globals").coins += 1
+				get_node("/root/Globals").score += 200
+				if(get_node("/root/Globals").coins == 100):
+					get_node("/root/Globals").coins = 0
+					get_node("/root/Globals").lives += 1
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").lives)
+				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
@@ -207,14 +210,14 @@ func _physics_process(delta):
 			
 				
 			if(tile_name == "Sprite12"): # coin
-				coins += 1
-				score += 200
-				if(coins == 100):
-					coins = 0
-					lives += 1
-				$HBoxContainer/Score/Current_Score.text = str(score)
-				$HBoxContainer/Coins/Current_Coins.text = str(coins)
-				$HBoxContainer/Lives/Current_Lives.text = str(lives)
+				get_node("/root/Globals").coins += 1
+				get_node("/root/Globals").score += 200
+				if(get_node("/root/Globals").coins== 100):
+					get_node("/root/Globals").coins = 0
+					get_node("/root/Globals").lives += 1
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -222,10 +225,10 @@ func _physics_process(delta):
 				$AudioStreamPlayer2D.playSound(sfx)
 				
 			if(tile_name == "Sprite15"): #1up
-				lives += 1
-				score += 1000
-				$HBoxContainer/Lives/Current_Lives.text = str(lives)
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				get_node("/root/Globals").lives += 1
+				get_node("/root/Globals").score += 1000
+				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -233,7 +236,7 @@ func _physics_process(delta):
 				$AudioStreamPlayer2D.playSound(sfx)
 				
 			if(tile_name == "Sprite14"): # PowerUp
-				score += 1000
+				get_node("/root/Globals").score += 1000
 				if health_level == 1:
 					get_node("BodyCol").scale.x = 1
 					get_node("BodyCol").scale.y = 1
@@ -244,7 +247,7 @@ func _physics_process(delta):
 				get_node("DeathDetector_level_up").set_collision_layer(3)
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -254,10 +257,10 @@ func _physics_process(delta):
 				#TODO: setup functionality for power-up
 				
 			if(tile_name == "Sprite18"): #star
-				score += 1000
+				get_node("/root/Globals").score += 1000
 				get_node("/root/Globals").invincible = 1
 				timer.start()
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -275,8 +278,8 @@ func _physics_process(delta):
 				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
-				score += 50
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				get_node("/root/Globals").score += 50
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				var sfx = "break_block"
@@ -285,8 +288,8 @@ func _physics_process(delta):
 			if(tile_name == "Sprite20"): # flag middle
 				var sfx = "flagpole"
 				$AudioStreamPlayer2D.playSound(sfx)
-				score += 500
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				get_node("/root/Globals").score += 500
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				get_node("BodyCol").disabled = true
 				#yield(get_tree().create_timer(5), "timeout")
 				get_tree().change_scene("TitleScreen.tscn")
@@ -294,8 +297,8 @@ func _physics_process(delta):
 			if(tile_name == "Sprite22"): # flag top
 				var sfx = "flagpole"
 				$AudioStreamPlayer2D.playSound(sfx)
-				score += 1000
-				$HBoxContainer/Score/Current_Score.text = str(score)
+				get_node("/root/Globals").score += 1000
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				get_node("BodyCol").disabled = true
 				get_tree().change_scene("TitleScreen.tscn")
 
@@ -333,14 +336,14 @@ func _physics_process(delta):
 				var time_left = 10
 				while(time_left > 0):
 					if(tile_name == "Sprite34" and Input.is_action_pressed("ui_up")):
-						coins += 1
-						score += 200
-						if(coins == 100):
-							coins = 0
-							lives += 1
-						$HBoxContainer/Score/Current_Score.text = str(score)
-						$HBoxContainer/Coins/Current_Coins.text = str(coins)
-						$HBoxContainer/Lives/Current_Lives.text = str(lives)
+						get_node("/root/Globals").coins += 1
+						get_node("/root/Globals").score += 200
+						if(get_node("/root/Globals").coins == 100):
+							get_node("/root/Globals").coins = 0
+							get_node("/root/Globals").lives += 1
+						$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+						$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+						$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 						item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 						item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 						collision.collider.set_cellv(item_tile_pos, item)
@@ -430,8 +433,19 @@ func _on_DeathDetector_area_entered(area):
 						return
 					health_level -=1
 					get_node("BodyCol").disabled = true
-					queue_free()
-					get_tree().change_scene("TitleScreen.tscn")
+					MusicController.stop()
+					$AnimatedSprite.play("death")
+					var sfx = "mario_dies"
+					$AudioStreamPlayer2D.playSound(sfx)
+					yield(get_tree().create_timer(3.0), "timeout")
+					if get_node("/root/Globals").lives > 0:
+						get_tree().reload_current_scene()
+						get_node("/root/Globals").lives -=1 
+					else:
+						get_tree().change_scene("res://GameOver.tscn")
+						get_node("/root/Globals").lives = 3
+					
+					
 				
 	
 			
