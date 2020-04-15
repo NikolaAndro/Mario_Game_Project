@@ -23,7 +23,7 @@ func _init():
 	
 func _timeout():
 	get_node("/root/Globals").invincible = 0
-	damage = 0
+	get_node("/root/Globals").damage = 0
 	timer.wait_time = 10
 	timer.stop()
 	
@@ -42,10 +42,10 @@ func _ready():
 
 
 func _physics_process(delta):
-	#lives = get_node("/root/Globals").tile_pos
-	#score = get_node("/root/Globals").enemy5_tile_pos
-	#$HBoxContainer/Lives/Current_Lives.text = str(lives)
-	#$HBoxContainer/Score/Current_Score.text = str(score)
+	#get_node("/root/Globals").lives = get_node("/root/Globals").tile_pos
+	#get_node("/root/Globals").score = get_node("/root/Globals").enemy3_tile_pos
+	#$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+	#$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 	jump_timer += 1
 	if Input.is_action_pressed("ui_right"):
 		if 	direction == -1:
@@ -423,14 +423,14 @@ func _on_StepDetector_area_entered(area):
 
 func _on_DeathDetector_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
-		if damage == 0:
+		if get_node("/root/Globals").damage == 0:
 			if health_level == 1:
 				if "fireball" in area.name:
 					on_ground = on_ground
 				else:
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
-					#health_level -=1
+					health_level -=1
 					get_node("BodyCol").disabled = true
 					MusicController.stop()
 					$AnimatedSprite.play("death")
@@ -458,7 +458,7 @@ func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
-					damage = 1
+					get_node("/root/Globals").damage = 1
 					health_level -= 1
 					timer.wait_time = 1
 					timer.start()

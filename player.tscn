@@ -37,6 +37,11 @@ animations = [ {
 "name": "RUN_level_up",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IDLE_level_up",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "JUMP_level_up",
@@ -45,11 +50,6 @@ animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "FALL_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IDLE_level_up",
 "speed": 5.0
 } ]
 
@@ -76,7 +76,7 @@ position = Vector2( 22.0882, -11.5295 )
 position = Vector2( -10.0726, -16.3774 )
 scale = Vector2( 0.419398, 0.517779 )
 frames = ExtResource( 1 )
-animation = "idle"
+animation = "death"
 playing = true
 centered = false
 

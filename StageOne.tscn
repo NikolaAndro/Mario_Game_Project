@@ -153,7 +153,7 @@ position = Vector2( 150.268, 183.971 )
 position = Vector2( 124.814, 93.9099 )
 
 [node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 141.584, 193.299 )
+position = Vector2( 64.1748, 137.073 )
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 193.168, 112.473 )

@@ -64,7 +64,7 @@ func _physics_process(delta):
 			get_node("/root/Globals").enemy3_tile_pos = collision.collider.world_to_map(position)
 			get_node("/root/Globals").enemy3_tile_pos -= collision.normal
 			
-	if get_node("/root/Globals").enemy3_tile_pos == get_node("/root/Globals").tile_pos:
+	if get_node("/root/Globals").enemy3_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
 		queue_free()
 
 func _on_StompDetector_body_entered(body):

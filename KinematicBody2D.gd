@@ -68,7 +68,7 @@ func _physics_process(delta):
 			get_node("/root/Globals").enemy4_tile_pos.y += 1
 			get_node("/root/Globals").enemy4_tile_pos.x += 1
 			
-	if get_node("/root/Globals").enemy4_tile_pos == get_node("/root/Globals").tile_pos:
+	if get_node("/root/Globals").enemy4_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
 		queue_free()
 
 
