@@ -4,6 +4,7 @@ const GRAVITY = 10
 const JUMP_POWER = -225
 const FLOOR = Vector2(0,-1)
 const FIREBALL = preload("res://fireball.tscn")
+const BRICK_PARTICLE = preload("res://brickParticle.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
@@ -277,12 +278,20 @@ func _physics_process(delta):
 				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
-				get_node("/root/Globals").score += 50
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				var sfx = "break_block"
-				$AudioStreamPlayer2D.playSound(sfx)
+				if(health_level > 1): #only powered-up Mario can break bricks
+					#code to create brick breaking effect
+					var particleEffect = BRICK_PARTICLE.instance()
+					particleEffect.get_node(".").emitting = true
+					particleEffect.get_node(".").one_shot = true
+					particleEffect.position.y = $Position2D.global_position.y - 20
+					particleEffect.position.x = $Position2D.global_position.x + 15
+					get_tree().get_root().add_child(particleEffect)
+					get_node("/root/Globals").score += 50
+					$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+					new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
+					collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+					var sfx = "break_block"
+					$AudioStreamPlayer2D.playSound(sfx)
 
 			if(tile_name == "Sprite20"): # flag middle
 				var sfx = "flagpole"
@@ -418,6 +427,8 @@ func _physics_process(delta):
 
 func _on_StepDetector_area_entered(area):
 	if "StompDetector" in area.name:
+		var sfx = "stomp"
+		$AudioStreamPlayer2D.playSound(sfx)
 		velocity.y = JUMP_POWER
 
 
@@ -458,6 +469,8 @@ func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
+					var sfx = "pipe"
+					$AudioStreamPlayer2D.playSound(sfx)
 					get_node("/root/Globals").damage = 1
 					health_level -= 1
 					timer.wait_time = 1
