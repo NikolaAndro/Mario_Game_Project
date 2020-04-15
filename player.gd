@@ -430,7 +430,7 @@ func _on_DeathDetector_area_entered(area):
 				else:
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
-					health_level -=1
+					#health_level -=1
 					get_node("BodyCol").disabled = true
 					MusicController.stop()
 					$AnimatedSprite.play("death")
@@ -457,13 +457,16 @@ func _on_DeathDetector_area_entered(area):
 func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
-				if "fireball" in area.name:
-					on_ground = on_ground
-				else:
+				if "KillDetector" in area.name:
 					damage = 1
-					timer.wait_time = 16
+					health_level -= 1
+					timer.wait_time = 1
 					timer.start()
-					if area.global_position.y > get_node("DeathDetector").global_position.y:
-						return
 					get_node("BodyCol").scale.x = 0.863
 					get_node("BodyCol").scale.y = 0.753
+					get_node("DeathDetector").set_collision_mask(3)
+					get_node("DeathDetector").set_collision_layer(3)
+					get_node("DeathDetector_level_up").set_collision_mask(0)
+					get_node("DeathDetector_level_up").set_collision_layer(0)
+					if area.global_position.y > get_node("DeathDetector").global_position.y:
+						return

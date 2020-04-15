@@ -1,15 +1,10 @@
-[gd_resource type="SpriteFrames" load_steps=12 format=2]
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
 
 [ext_resource path="res://Mario-assets/Player/mario_jump.png" type="Texture" id=1]
 [ext_resource path="res://Mario-assets/Player/mario_run_2.png" type="Texture" id=2]
 [ext_resource path="res://Mario-assets/Player/mario_idle.png" type="Texture" id=3]
 [ext_resource path="res://Mario-assets/Player/mario_run_1.png" type="Texture" id=4]
 [ext_resource path="res://Mario-assets/Player/mario_run_3.png" type="Texture" id=5]
-[ext_resource path="res://Mario-assets/Player/level_up_run_2.png" type="Texture" id=6]
-[ext_resource path="res://Mario-assets/Player/level_up_jump.png" type="Texture" id=7]
-[ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=8]
-[ext_resource path="res://Mario-assets/Player/level_up.png" type="Texture" id=9]
-[ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=10]
 [ext_resource path="res://Mario-assets/Player/mario_dies.png" type="Texture" id=11]
 
 [resource]
@@ -29,11 +24,6 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "IDLE_level_up",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "run",
@@ -42,21 +32,6 @@ animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "JUMP_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "FALL_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "RUN_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],

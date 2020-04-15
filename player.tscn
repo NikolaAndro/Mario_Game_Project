@@ -14,7 +14,7 @@ radius = 11.8573
 height = 18.3538
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7.68497, 4.40398 )
+extents = Vector2( 9.44036, 4.40398 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 1.32264, 11.9803 )
@@ -32,9 +32,9 @@ animations = [ {
 "name": "disabled",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "IDLE_level_up",
+"name": "RUN_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -47,17 +47,17 @@ animations = [ {
 "name": "FALL_level_up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "RUN_level_up",
+"name": "IDLE_level_up",
 "speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 1.03203, 24.139 )
+extents = Vector2( 1.03203, 18.5349 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 0.746933, 24.3649 )
+extents = Vector2( 0.746933, 18.7905 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 11.3168, 0.89278 )
@@ -76,7 +76,7 @@ position = Vector2( 22.0882, -11.5295 )
 position = Vector2( -10.0726, -16.3774 )
 scale = Vector2( 0.419398, 0.517779 )
 frames = ExtResource( 1 )
-animation = "death"
+animation = "idle"
 playing = true
 centered = false
 
@@ -118,7 +118,7 @@ script = ExtResource( 3 )
 position = Vector2( -11.9281, -25.6584 )
 scale = Vector2( 0.379233, 0.386945 )
 frames = SubResource( 6 )
-animation = "IDLE_level_up"
+animation = "disabled"
 centered = false
 
 [node name="DeathDetector_level_up" type="Area2D" parent="."]
@@ -126,12 +126,12 @@ collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
-position = Vector2( -14.4224, -0.946283 )
+position = Vector2( -14.4224, -3.46453 )
 shape = SubResource( 7 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0117647, 0.435294, 0.27451, 1 )
-position = Vector2( 15.3738, 0.0841627 )
+position = Vector2( 15.5675, -4.95234 )
 shape = SubResource( 8 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
