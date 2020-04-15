@@ -14,6 +14,7 @@ var enemy5_tile_pos = Vector2(5,5) #keeps the position of the tile the flying en
 var lives = 3
 var score = 0
 var coins = 0
+var counter = 300
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

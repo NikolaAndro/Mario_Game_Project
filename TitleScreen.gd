@@ -22,6 +22,7 @@ func _physics_process(delta):
 
 func _on_Play_pressed():
 	get_node("/root/Globals").current_scene = "1-1"
+	get_node("/root/Globals").counter = 300
 	get_tree().change_scene("res://StageOne.tscn")
 
 

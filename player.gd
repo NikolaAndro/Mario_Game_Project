@@ -7,7 +7,6 @@ const FIREBALL = preload("res://fireball.tscn")
 var on_ground = false
 var velocity = Vector2()
 var direction = 1
-var counter = 300
 export var stomp_impulse = 1000.0
 var alive = 1
 var jump_timer = 0
@@ -30,7 +29,7 @@ func _timeout():
 	
 func _ready():
 	#sets initial label values upon start of level
-	$HBoxContainer/Time/Current_Time.text = str(counter)
+	$HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
 	$HBoxContainer/World/Current_World.text = get_node("/root/Globals").current_scene
 	$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
@@ -155,7 +154,7 @@ func _physics_process(delta):
 			get_tree().reload_current_scene()
 		else:
 			get_node("/root/Globals").lives = 3
-			get_tree().change_scene("TitleScreen.tscn")
+			get_tree().change_scene("GameOver.tscn")
 			
 		
 	velocity = move_and_slide(velocity, FLOOR)
@@ -453,10 +452,6 @@ func _on_DeathDetector_area_entered(area):
 		
 		#get_tree().reload_current_scene()
 
-
-func _on_Timer_timeout():
-	counter -= 1
-	$HBoxContainer/Time/Current_Time.text = str(counter)
 
 
 func _on_DeathDetector_level_up_area_entered(area):
