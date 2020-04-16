@@ -37,11 +37,6 @@ animations = [ {
 "name": "RUN_level_up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IDLE_level_up",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "JUMP_level_up",
@@ -50,6 +45,11 @@ animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "FALL_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IDLE_level_up",
 "speed": 5.0
 } ]
 
@@ -89,7 +89,7 @@ monitorable = false
 
 [node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
 modulate = Color( 0, 0.0941176, 0.701961, 1 )
-position = Vector2( -0.0369835, 11.1997 )
+position = Vector2( -0.159069, 8.14754 )
 shape = SubResource( 2 )
 
 [node name="DeathDetector" type="Area2D" parent="."]

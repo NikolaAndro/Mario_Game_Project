@@ -1,27 +1,27 @@
 extends KinematicBody2D
-const SPEED = 60
-const GRAVITY = 10
-const JUMP_POWER = -225
-const FLOOR = Vector2(0,-1)
-const FIREBALL = preload("res://fireball.tscn")
-const BRICK_PARTICLE = preload("res://brickParticle.tscn")
-var on_ground = false
-var velocity = Vector2()
-var direction = 1
-export var stomp_impulse = 1000.0
-var alive = 1
-var jump_timer = 0
-var sprint_timer = 0
-var health_level = 1
+const SPEED = 60 #Mario's walking speed
+const GRAVITY = 10	#Force of Gravity
+const JUMP_POWER = -225		
+const FLOOR = Vector2(0,-1)		#Used to calculate velocity 
+const FIREBALL = preload("res://fireball.tscn")		#Refferencing the fireball scene
+var on_ground = false		#Checking if Mario is on the ground
+var velocity = Vector2()	
+var direction = 1	#Checking the direction Mario is moving to 
+var jump_timer = 0		#Used to increase the jump power of Mario when holding the up arrow
+var sprint_timer = 0 #Used to increase the speed of Mario when holding the down arrow
+var health_level = 1	#Increases when Mario gets mashroom and decreases accordingly
 var damage = 0  # Invincibility after getting hit
-
 var timer
+
+#Initializing the timer
 func _init():
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = 10
 	timer.connect("timeout", self, "_timeout")
 	
+#Time used for the invinsibility of Mario when pick up the red mushroom or colides 
+#with an enemy
 func _timeout():
 	get_node("/root/Globals").invincible = 0
 	get_node("/root/Globals").damage = 0
@@ -36,17 +36,12 @@ func _ready():
 	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 	$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
 	
-	
-	
+	#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
 
-
+#Used to run Mario
 func _physics_process(delta):
-	#get_node("/root/Globals").lives = get_node("/root/Globals").tile_pos
-	#get_node("/root/Globals").score = get_node("/root/Globals").enemy3_tile_pos
-	#$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
-	#$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 	jump_timer += 1
 	if Input.is_action_pressed("ui_right"):
 		if 	direction == -1:
@@ -146,7 +141,8 @@ func _physics_process(delta):
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("FALL_level_up")
-			
+	
+	#If Mario falls off of the stage, he will die.		
 	if position.y > 240:
 		get_node("BodyCol").disabled = true
 		queue_free()
@@ -237,10 +233,12 @@ func _physics_process(delta):
 				
 			if(tile_name == "Sprite14"): # PowerUp
 				get_node("/root/Globals").score += 1000
+				#If Mario gets the mushroom while small, make him bigger
 				if health_level == 1:
 					get_node("BodyCol").scale.x = 1
 					get_node("BodyCol").scale.y = 1
 					health_level += 1
+				#Disables small mario hitbox and enables big mario hitbox
 				get_node("DeathDetector").set_collision_mask(0)
 				get_node("DeathDetector").set_collision_layer(0)
 				get_node("DeathDetector_level_up").set_collision_mask(3)
@@ -254,10 +252,10 @@ func _physics_process(delta):
 				var sfx = "powerup"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-				#TODO: setup functionality for power-up
-				
+			
 			if(tile_name == "Sprite18"): #star
 				get_node("/root/Globals").score += 1000
+				#Make Mario invincible for a period of time after getting star
 				get_node("/root/Globals").invincible = 1
 				timer.start()
 				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
@@ -278,20 +276,12 @@ func _physics_process(delta):
 				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
-				if(health_level > 1): #only powered-up Mario can break bricks
-					#code to create brick breaking effect
-					var particleEffect = BRICK_PARTICLE.instance()
-					particleEffect.get_node(".").emitting = true
-					particleEffect.get_node(".").one_shot = true
-					particleEffect.position.y = $Position2D.global_position.y - 20
-					particleEffect.position.x = $Position2D.global_position.x + 15
-					get_tree().get_root().add_child(particleEffect)
-					get_node("/root/Globals").score += 50
-					$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-					new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
-					collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-					var sfx = "break_block"
-					$AudioStreamPlayer2D.playSound(sfx)
+				get_node("/root/Globals").score += 50
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
+				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+				var sfx = "break_block"
+				$AudioStreamPlayer2D.playSound(sfx)
 
 			if(tile_name == "Sprite20"): # flag middle
 				var sfx = "flagpole"
@@ -423,19 +413,17 @@ func _physics_process(delta):
 				var sfx = "powerup_appeared"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-				#TODO: setup functionality for star
-
+#Adding a jump after hitting the top of the enemy
 func _on_StepDetector_area_entered(area):
 	if "StompDetector" in area.name:
-		var sfx = "stomp"
-		$AudioStreamPlayer2D.playSound(sfx)
 		velocity.y = JUMP_POWER
 
-
+#Determening damage of small Mario when hit by enemy
 func _on_DeathDetector_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 		if get_node("/root/Globals").damage == 0:
 			if health_level == 1:
+				#Determening what happens when hit by a fireball
 				if "fireball" in area.name:
 					on_ground = on_ground
 				else:
@@ -455,28 +443,20 @@ func _on_DeathDetector_area_entered(area):
 						get_tree().change_scene("res://GameOver.tscn")
 						get_node("/root/Globals").lives = 3
 					
-					
-				
-	
-			
-		
-		
-		#get_tree().reload_current_scene()
-
-
-
+#Determening what happens to a big Mario when gets hit by an enemy.
 func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
-					var sfx = "pipe"
-					$AudioStreamPlayer2D.playSound(sfx)
 					get_node("/root/Globals").damage = 1
 					health_level -= 1
 					timer.wait_time = 1
 					timer.start()
+					#Reducing the hitbox to the size of the hitbox that small Mario uses
 					get_node("BodyCol").scale.x = 0.863
 					get_node("BodyCol").scale.y = 0.753
+					#Enabling the collision masks that small Mario uses,
+					#and disabling the Big Mario collisions
 					get_node("DeathDetector").set_collision_mask(3)
 					get_node("DeathDetector").set_collision_layer(3)
 					get_node("DeathDetector_level_up").set_collision_mask(0)

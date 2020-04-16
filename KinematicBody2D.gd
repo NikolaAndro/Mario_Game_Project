@@ -1,15 +1,15 @@
 extends KinematicBody2D
 
-const SPEED = 30
-const GRAVITY = 10
+const SPEED = 30	#speed of the movement
+const GRAVITY = 10	#gravity force
 const JUMP_POWER = -250
 const FLOOR = Vector2(0,-1)
-const ENEMYATTACK = preload("res://enemyAttack.tscn")
-var on_ground = false
+const ENEMYATTACK = preload("res://enemyAttack.tscn")	#referencing the fireball
+var on_ground = false		#checking if on the ground
 var velocity = Vector2()
-var direction = 1
-var attack = 0
-var falling = 0
+var direction = 1		#checking the movement direction
+var attack = 0		#tracking the time between hammer throws
+var falling = 0		#checking if falling
 
 func _ready():
 	set_position(Vector2(400,150))
@@ -30,7 +30,7 @@ func _physics_process(delta):
 				direction *= -1
 		else:
 			falling += 1 
-			
+	#Throwing a new hammer if the attacked reached value of 80.		
 	if attack == 80:
 		var enemyAttack = ENEMYATTACK.instance()
 		if direction == 1:
@@ -59,6 +59,8 @@ func _physics_process(delta):
 	var item_tile_pos
 	var item_collision
 
+	#Determening on what tile the enemy is. This is needed for Mario to be able
+	#to kill the enemy when he hits the same block from hte bottom.
 	for i in range(get_slide_count()):
 		collision = get_slide_collision(i)
 					
@@ -67,17 +69,18 @@ func _physics_process(delta):
 			get_node("/root/Globals").enemy4_tile_pos -= collision.normal
 			get_node("/root/Globals").enemy4_tile_pos.y += 1
 			get_node("/root/Globals").enemy4_tile_pos.x += 1
-			
+	#If Mario is hitting the same block the enemy is on, the enemy is going to die.			
 	if get_node("/root/Globals").enemy4_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
 		queue_free()
 
-
+#Enemy dies when gets hit from the top by Mario.
 func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
 	get_node("BodyCol").disabled = true
 	queue_free()
-	
+
+#Collisions on the side of the enemy	
 func _on_KillDetector_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 		if direction == -1:
@@ -90,7 +93,7 @@ func _on_KillDetector_area_entered(area):
 		if "DeathDetector" in area.name:
 			queue_free()
 
-
+#Collision with walls
 func _on_KillDetector_body_entered(body):
 	if direction == -1:
 		$AnimatedSprite.flip_h = true
@@ -99,7 +102,7 @@ func _on_KillDetector_body_entered(body):
 		$AnimatedSprite.flip_h = false
 		direction = -1
 
-
+#Collision with the fireball
 func _on_Body_area_entered(area):
 	if "enemyAttack" in area.name:
 		direction = direction

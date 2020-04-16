@@ -10,8 +10,6 @@ var flagpole = load("res://music/flagpole.wav")
 var jumping_small = load("res://music/jump_small.wav")
 var mario_dies = load("res://music/mario_dies.wav")
 var game_over = load("res://music/game_over.wav")
-var stomp = load("res://music/stomp.wav")
-var pipe = load("res://music/pipe.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,10 +39,6 @@ func playSound(soundName):
 			stream = mario_dies
 		"game_over":
 			stream = game_over
-		"pipe":
-			stream = pipe
-		"stomp":
-			stream = stomp
 		
 	play()
 	   
