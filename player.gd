@@ -39,7 +39,10 @@ func _ready():
 	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 	$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
 	randomize() #seeds random number generator
-	hits_left = randi() % 10 +  #sets the random variable
+	hits_left = randi() % 10 +  5 #sets the random variable
+	
+	
+	
 	
 	
 	#Disabling hitboxes of big Mario
