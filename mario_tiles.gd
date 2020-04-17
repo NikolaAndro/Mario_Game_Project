@@ -24,6 +24,8 @@ func setMap():
 	mainData.pop_back()
 	var numRows = mainData.size()
 	var numCols = mainData[0].size()
+	#print(numCols)
+	#get_node("/root/Globals").right_limt += numCols
 	
 	#iterates over the 2-D array and checks for what type of tile is encountered based on encoding from csv file
 	#after check is performed, generates a block within stageOne at tile_pos

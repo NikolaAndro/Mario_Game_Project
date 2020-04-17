@@ -4,6 +4,7 @@ const GRAVITY = 10	#Force of Gravity
 const JUMP_POWER = -225		
 const FLOOR = Vector2(0,-1)		#Used to calculate velocity 
 const FIREBALL = preload("res://fireball.tscn")		#Refferencing the fireball scene
+const BRICK_PARTICLE = preload("res://brickParticle.tscn") #Referencing the brick particle scene
 var on_ground = false		#Checking if Mario is on the ground
 var velocity = Vector2()	
 var direction = 1	#Checking the direction Mario is moving to 
@@ -12,6 +13,8 @@ var sprint_timer = 0 #Used to increase the speed of Mario when holding the down 
 var health_level = 1	#Increases when Mario gets mashroom and decreases accordingly
 var damage = 0  # Invincibility after getting hit
 var timer
+var hits_left  #used for multi-coin block to randomize how many hits you get
+
 
 #Initializing the timer
 func _init():
@@ -35,6 +38,9 @@ func _ready():
 	$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 	$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+	randomize() #seeds random number generator
+	hits_left = randi() % 10 +  #sets the random variable
+	
 	
 	#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
@@ -165,6 +171,7 @@ func _physics_process(delta):
 	var item_tile_pos #position of the item
 	var item_collision 
 	
+	
 	if on_ground == false:
 		get_node("/root/Globals").tile_pos = Vector2(0,0)
 	
@@ -273,15 +280,22 @@ func _physics_process(delta):
 				MusicController.play("res://music/Super_Mario_Bros_Music.ogg")
 				MusicController.seek(temp)
 				
-				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
-				get_node("/root/Globals").score += 50
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-				new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				var sfx = "break_block"
-				$AudioStreamPlayer2D.playSound(sfx)
+				if(health_level > 1): #only powered-up Mario can break bricks
+					#code to create brick breaking effect
+					var particleEffect = BRICK_PARTICLE.instance()
+					particleEffect.get_node(".").emitting = true
+					particleEffect.get_node(".").one_shot = true
+					particleEffect.position.y = $Position2D.global_position.y - 20
+					particleEffect.position.x = $Position2D.global_position.x + 15
+					get_tree().get_root().add_child(particleEffect)
+					get_node("/root/Globals").score += 50
+					$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+					new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
+					collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+					var sfx = "break_block"
+					$AudioStreamPlayer2D.playSound(sfx)
 
 			if(tile_name == "Sprite20"): # flag middle
 				var sfx = "flagpole"
@@ -327,31 +341,32 @@ func _physics_process(delta):
 				var sfx = "powerup_appeared"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up")):  #multi-coin box
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite34")
-				tile_name = "Sprite34"
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				var time_left = 10
-				while(time_left > 0):
-					if(tile_name == "Sprite34" and Input.is_action_pressed("ui_up")):
-						get_node("/root/Globals").coins += 1
-						get_node("/root/Globals").score += 200
-						if(get_node("/root/Globals").coins == 100):
-							get_node("/root/Globals").coins = 0
-							get_node("/root/Globals").lives += 1
-						$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-						$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
-						$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
-						item = collision.collider.tile_set.find_tile_by_name("Sprite12")
-						item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-						collision.collider.set_cellv(item_tile_pos, item)
-						var sfx = "coin"
-						$AudioStreamPlayer2D.playSound(sfx)
-						yield(get_tree().create_timer(0.25), "timeout")
-						item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-						collision.collider.set_cellv(item_tile_pos, item)
-					yield(get_tree().create_timer(1), "timeout")
-					time_left -= 1
+			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up") and hits_left > 0):  #multi-coin box
+				#yield(get_tree().create_timer(2), "timeout")
+				#new_id = collision.collider.tile_set.find_tile_by_name("Sprite34")
+				#tile_name = "Sprite34"
+				#collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+				get_node("/root/Globals").coins += 1
+				get_node("/root/Globals").score += 200
+				if(get_node("/root/Globals").coins == 100):
+					get_node("/root/Globals").coins = 0
+					get_node("/root/Globals").lives += 1
+				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
+				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
+				collision.collider.set_cellv(item_tile_pos, item)
+				var sfx = "coin"
+				$AudioStreamPlayer2D.playSound(sfx)
+				yield(get_tree().create_timer(0.25), "timeout")
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item)
+				hits_left -= 1
+				print(hits_left)
+				
+				
+			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up") and hits_left <= 0):  #multi-coin box turning box into dead box
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				
@@ -363,7 +378,7 @@ func _physics_process(delta):
 				collision.collider.set_cellv(item_tile_pos, item)
 				var sfx = "powerup_appeared"
 				$AudioStreamPlayer2D.playSound(sfx)
-#				
+				
 			if(tile_name == "Sprite28" and Input.is_action_pressed("ui_up")):  #brick - 1-up
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				item = collision.collider.tile_set.find_tile_by_name("Sprite15")
@@ -382,7 +397,6 @@ func _physics_process(delta):
 				var sfx = "powerup_appeared"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-				#TODO: setup functionality for star
 				
 			if(tile_name == "Sprite30" and Input.is_action_pressed("ui_up")): #hidden power up
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
@@ -393,7 +407,6 @@ func _physics_process(delta):
 				var sfx = "powerup_appeared"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-				#TODO: setup functionality for power-up
 				
 			if(tile_name == "Sprite31" and Input.is_action_pressed("ui_up")):  #hidden 1-up
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
@@ -416,6 +429,8 @@ func _physics_process(delta):
 #Adding a jump after hitting the top of the enemy
 func _on_StepDetector_area_entered(area):
 	if "StompDetector" in area.name:
+		var sfx = "stomp"
+		$AudioStreamPlayer2D.playSound(sfx)
 		velocity.y = JUMP_POWER
 
 #Determening damage of small Mario when hit by enemy
@@ -448,6 +463,8 @@ func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
+					var sfx = "pipe"
+					$AudioStreamPlayer2D.playSound(sfx)
 					get_node("/root/Globals").damage = 1
 					health_level -= 1
 					timer.wait_time = 1

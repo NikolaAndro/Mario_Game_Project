@@ -304,6 +304,20 @@ region_rect = Rect2( 272, 112, 16, 16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite6/StaticBody2D"]
 shape = SubResource( 5 )
 
+[node name="Sprite34" type="Sprite" parent="."]
+position = Vector2( 71.979, 80.9645 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 272, 112, 16, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite34"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite34/StaticBody2D"]
+shape = SubResource( 5 )
+
 [node name="Sprite26" type="Sprite" parent="."]
 position = Vector2( 92.447, 175.15 )
 texture = ExtResource( 1 )

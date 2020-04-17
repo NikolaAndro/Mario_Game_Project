@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/mario_font.tres" type="DynamicFont" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Mario-assets/Other/Overworld_sky.png" type="Texture" id=11]
 [ext_resource path="res://StageOne.gd" type="Script" id=12]
 
+[sub_resource type="RectangleShape2D" id=1]
+
 [node name="StageOne" type="Node2D"]
 script = ExtResource( 12 )
 __meta__ = {
@@ -20,18 +22,25 @@ __meta__ = {
 }
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 5.08051, 163.59 )
+position = Vector2( 19.0805, 168.59 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Camera2D" type="Camera2D" parent="player"]
-offset = Vector2( 0, -36 )
+position = Vector2( 6, -150 )
 current = true
+zoom = Vector2( 1.5, 1.5 )
+limit_left = 0
+drag_margin_h_enabled = true
+drag_margin_left = 1.0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="player"]
-margin_left = -293.0
-margin_top = -238.0
-margin_right = 342.0
-margin_bottom = -188.0
+margin_left = 29.0
+margin_top = -322.0
+margin_right = 664.0
+margin_bottom = -272.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -125,16 +134,6 @@ margin_right = 127.0
 margin_bottom = 36.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="player"]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="player/ParallaxBackground"]
-motion_mirroring = Vector2( 768, 0 )
-
-[node name="Sprite" type="Sprite" parent="player/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 11 )
-centered = false
-offset = Vector2( 0, -125 )
-
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 92.436, 33.9265 )
 
@@ -170,4 +169,80 @@ motion_mirroring = Vector2( 768, 0 )
 texture = ExtResource( 10 )
 centered = false
 offset = Vector2( 0, 37 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2( 768, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+texture = ExtResource( 11 )
+centered = false
+offset = Vector2( 0, -125 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -8, 200 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( -8, 184 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( -8, 168 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2( -8, 152 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2( -8, 136 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2( -8, 120 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2( -8, 104 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+shape = SubResource( 1 )
 [connection signal="tree_exited" from="." to="." method="_on_StageOne_tree_exited"]
