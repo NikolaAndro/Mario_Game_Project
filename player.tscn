@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=6]
 [ext_resource path="res://Mario-assets/Player/level_up_tryyyy.png" type="Texture" id=7]
 [ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=8]
+[ext_resource path="res://MenuPopup.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
@@ -32,16 +33,6 @@ animations = [ {
 "name": "disabled",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "RUN_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "JUMP_level_up",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "FALL_level_up",
@@ -50,6 +41,16 @@ animations = [ {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "IDLE_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "RUN_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "JUMP_level_up",
 "speed": 5.0
 } ]
 
@@ -63,7 +64,7 @@ extents = Vector2( 0.746933, 18.7905 )
 extents = Vector2( 11.3168, 0.89278 )
 
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 22.6623, -1.77265 )
+position = Vector2( 29.6623, 15.2274 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -138,6 +139,79 @@ shape = SubResource( 8 )
 modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
 position = Vector2( -0.221818, -27.0933 )
 shape = SubResource( 9 )
+
+[node name="MenuPopup" type="Popup" parent="."]
+pause_mode = 2
+visible = true
+margin_left = 166.0
+margin_top = -4.0
+margin_right = 477.0
+margin_bottom = 156.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MenuPopup"]
+margin_left = 140.0
+margin_top = 70.0
+margin_right = 340.0
+margin_bottom = 170.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="ColorRect" parent="MenuPopup"]
+margin_left = 150.0
+margin_top = 80.0
+margin_right = 330.0
+margin_bottom = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MenuPopup/Resume"]
+margin_right = 180.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RESUME GAME"
+align = 1
+valign = 1
+
+[node name="Restart" type="ColorRect" parent="MenuPopup"]
+margin_left = 150.0
+margin_top = 110.0
+margin_right = 330.0
+margin_bottom = 130.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MenuPopup/Restart"]
+margin_right = 181.0
+margin_bottom = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SAVE GAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="ColorRect" parent="MenuPopup"]
+margin_left = 150.0
+margin_top = 140.0
+margin_right = 330.0
+margin_bottom = 160.0
+
+[node name="Quit_Game" type="Label" parent="MenuPopup/Quit"]
+margin_right = 180.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "QUIT GAME"
+align = 1
+valign = 1
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]

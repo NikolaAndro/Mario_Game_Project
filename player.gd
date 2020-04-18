@@ -41,11 +41,7 @@ func _ready():
 	randomize() #seeds random number generator
 	hits_left = randi() % 10 +  5 #sets the random variable
 	
-	
-	
-	
-	
-	#Disabling hitboxes of big Mario
+		#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
 
@@ -114,7 +110,6 @@ func _physics_process(delta):
 		jump_timer = 90
 	else:
 		jump_timer = 0
-
 	#fireball
 	if Input.is_action_just_pressed("ui_down"):
 		var sfx = "fireball"
@@ -131,7 +126,7 @@ func _physics_process(delta):
 			fireball.position.x = $Position2D.global_position.x - 10
 			fireball.position.y = $Position2D.global_position.y
 	velocity.y += GRAVITY 
-
+	
 	if is_on_floor():
 		on_ground = true
 	else:
