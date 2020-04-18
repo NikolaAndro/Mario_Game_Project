@@ -12,4 +12,3 @@ var lives = 3	#numbers of lives Mario has.
 var score = 0	#Score the Mario reached.
 var coins = 0	#Number of coins Mario collected
 var counter = 300	#Counter for level's time limit
-var right_limit = 0 #Represents the end of the level for camara purposes
