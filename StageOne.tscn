@@ -38,102 +38,104 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="player"]
-margin_left = 29.0
-margin_top = -322.0
-margin_right = 664.0
-margin_bottom = -272.0
+[node name="CanvasLayer" type="CanvasLayer" parent="player"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="player/CanvasLayer"]
+margin_left = 8.5805
+margin_top = 10.59
+margin_right = 345.0
+margin_bottom = 60.59
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="VBoxContainer" parent="player/HBoxContainer"]
-margin_right = 123.0
+[node name="Score" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_right = 64.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Score" type="Label" parent="player/HBoxContainer/Score"]
-margin_right = 123.0
-margin_bottom = 16.0
+[node name="Score" type="Label" parent="player/CanvasLayer/HBoxContainer/Score"]
+margin_right = 64.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 2 )
 text = "Score"
 
-[node name="Current_Score" type="Label" parent="player/HBoxContainer/Score"]
-margin_top = 20.0
-margin_right = 123.0
-margin_bottom = 36.0
+[node name="Current_Score" type="Label" parent="player/CanvasLayer/HBoxContainer/Score"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Coins" type="VBoxContainer" parent="player/HBoxContainer"]
-margin_left = 127.0
-margin_right = 250.0
+[node name="Coins" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 132.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Coins" type="Label" parent="player/HBoxContainer/Coins"]
-margin_right = 123.0
-margin_bottom = 16.0
+[node name="Coins" type="Label" parent="player/CanvasLayer/HBoxContainer/Coins"]
+margin_right = 64.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 2 )
 text = "Coins"
 
-[node name="Current_Coins" type="Label" parent="player/HBoxContainer/Coins"]
-margin_top = 20.0
-margin_right = 123.0
-margin_bottom = 36.0
+[node name="Current_Coins" type="Label" parent="player/CanvasLayer/HBoxContainer/Coins"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Lives" type="VBoxContainer" parent="player/HBoxContainer"]
-margin_left = 254.0
-margin_right = 377.0
+[node name="Lives" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 136.0
+margin_right = 200.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Lives" type="Label" parent="player/HBoxContainer/Lives"]
-margin_right = 123.0
-margin_bottom = 16.0
+[node name="Lives" type="Label" parent="player/CanvasLayer/HBoxContainer/Lives"]
+margin_right = 64.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 2 )
 text = "Lives"
 
-[node name="Current_Lives" type="Label" parent="player/HBoxContainer/Lives"]
-margin_top = 20.0
-margin_right = 123.0
-margin_bottom = 36.0
+[node name="Current_Lives" type="Label" parent="player/CanvasLayer/HBoxContainer/Lives"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="World" type="VBoxContainer" parent="player/HBoxContainer"]
-margin_left = 381.0
-margin_right = 504.0
+[node name="World" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 204.0
+margin_right = 268.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="World" type="Label" parent="player/HBoxContainer/World"]
-margin_right = 123.0
-margin_bottom = 16.0
+[node name="World" type="Label" parent="player/CanvasLayer/HBoxContainer/World"]
+margin_right = 64.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 2 )
 text = "World"
 
-[node name="Current_World" type="Label" parent="player/HBoxContainer/World"]
-margin_top = 20.0
-margin_right = 123.0
-margin_bottom = 36.0
+[node name="Current_World" type="Label" parent="player/CanvasLayer/HBoxContainer/World"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Time" type="VBoxContainer" parent="player/HBoxContainer"]
-margin_left = 508.0
-margin_right = 635.0
+[node name="Time" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 272.0
+margin_right = 336.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Time" type="Label" parent="player/HBoxContainer/Time"]
-margin_right = 127.0
-margin_bottom = 16.0
+[node name="Time" type="Label" parent="player/CanvasLayer/HBoxContainer/Time"]
+margin_right = 64.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 2 )
 text = "Time"
 
-[node name="Current_Time" type="Label" parent="player/HBoxContainer/Time"]
-margin_top = 20.0
-margin_right = 127.0
-margin_bottom = 36.0
+[node name="Current_Time" type="Label" parent="player/CanvasLayer/HBoxContainer/Time"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 
 [node name="Ground Enemy" parent="." instance=ExtResource( 3 )]

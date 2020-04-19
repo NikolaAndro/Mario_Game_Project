@@ -33,11 +33,11 @@ func _timeout():
 	
 func _ready():
 	#sets initial label values upon start of level
-	$HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
-	$HBoxContainer/World/Current_World.text = get_node("/root/Globals").current_scene
-	$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
-	$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-	$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
+	$CanvasLayer/HBoxContainer/World/Current_World.text = get_node("/root/Globals").current_scene
+	$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+	$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+	$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
 	randomize() #seeds random number generator
 	hits_left = randi() % 10 +  5 #sets the random variable
 	
@@ -194,9 +194,9 @@ func _physics_process(delta):
 				if(get_node("/root/Globals").coins == 100):
 					get_node("/root/Globals").coins = 0
 					get_node("/root/Globals").lives += 1
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").lives)
-				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
-				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").lives)
+				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
@@ -216,9 +216,9 @@ func _physics_process(delta):
 				if(get_node("/root/Globals").coins== 100):
 					get_node("/root/Globals").coins = 0
 					get_node("/root/Globals").lives += 1
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
-				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -228,8 +228,8 @@ func _physics_process(delta):
 			if(tile_name == "Sprite15"): #1up
 				get_node("/root/Globals").lives += 1
 				get_node("/root/Globals").score += 1000
-				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -250,7 +250,7 @@ func _physics_process(delta):
 				get_node("DeathDetector_level_up").set_collision_layer(3)
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -263,7 +263,7 @@ func _physics_process(delta):
 				#Make Mario invincible for a period of time after getting star
 				get_node("/root/Globals").invincible = 1
 				timer.start()
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
@@ -289,7 +289,7 @@ func _physics_process(delta):
 					particleEffect.position.x = $Position2D.global_position.x + 15
 					get_tree().get_root().add_child(particleEffect)
 					get_node("/root/Globals").score += 50
-					$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+					$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 					new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
 					collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 					var sfx = "break_block"
@@ -308,7 +308,7 @@ func _physics_process(delta):
 				var sfx = "flagpole"
 				$AudioStreamPlayer2D.playSound(sfx)
 				get_node("/root/Globals").score += 1000
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
 				get_node("BodyCol").disabled = true
 				get_tree().change_scene("TitleScreen.tscn")
 
@@ -349,9 +349,9 @@ func _physics_process(delta):
 				if(get_node("/root/Globals").coins == 100):
 					get_node("/root/Globals").coins = 0
 					get_node("/root/Globals").lives += 1
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
-				$HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
-				$HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").score)
+				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").coins)
+				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").lives)
 				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(item_tile_pos, item)
