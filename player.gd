@@ -299,7 +299,7 @@ func _physics_process(delta):
 				var sfx = "flagpole"
 				$AudioStreamPlayer2D.playSound(sfx)
 				get_node("/root/Globals").player["score"] += 500
-				$HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
 				#yield(get_tree().create_timer(5), "timeout")
 				get_tree().change_scene("TitleScreen.tscn")
