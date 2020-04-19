@@ -19,7 +19,7 @@ var player = {
 	"score": 0,
 }
 
-const FILE_NAME = "res://Save/savedgame"
+const FILE_NAME = "res://Save/savedgame.json"
 func load():
 	var file = File.new()
 	file.open(FILE_NAME, File.READ)

@@ -35,7 +35,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "FALL_level_up",
+"name": "JUMP_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -50,7 +50,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "JUMP_level_up",
+"name": "FALL_level_up",
 "speed": 5.0
 } ]
 
@@ -94,6 +94,7 @@ position = Vector2( -0.159069, 8.14754 )
 shape = SubResource( 2 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
+pause_mode = 2
 position = Vector2( 0.149891, 1.58154 )
 collision_layer = 3
 
@@ -113,6 +114,7 @@ position = Vector2( -0.179111, -17.6581 )
 shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
@@ -179,7 +181,7 @@ text = "RESUME GAME"
 align = 1
 valign = 1
 
-[node name="Restart" type="ColorRect" parent="MenuPopup"]
+[node name="Save_Game" type="ColorRect" parent="MenuPopup"]
 margin_left = 150.0
 margin_top = 110.0
 margin_right = 330.0
@@ -188,7 +190,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MenuPopup/Restart"]
+[node name="Label" type="Label" parent="MenuPopup/Save_Game"]
 margin_right = 181.0
 margin_bottom = 19.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -210,6 +212,30 @@ margin_right = 180.0
 margin_bottom = 21.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "QUIT GAME"
+align = 1
+valign = 1
+
+[node name="Popup" type="Popup" parent="MenuPopup"]
+visible = true
+margin_left = 141.0
+margin_top = 43.0
+margin_right = 339.0
+margin_bottom = 59.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MenuPopup/Popup"]
+margin_left = 27.0
+margin_right = 227.0
+margin_bottom = 15.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+
+[node name="Label" type="Label" parent="MenuPopup/Popup/ColorRect"]
+margin_right = 194.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Saving Game..."
 align = 1
 valign = 1
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
