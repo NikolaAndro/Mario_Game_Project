@@ -4,14 +4,14 @@ var selected_menu
 
 func change_menu_color(selected_menu):
 	$Resume.color = Color.gray
-	$Restart.color = Color.gray
+	$Save_Game.color = Color.gray
 	$Quit.color = Color.gray
 	
 	match selected_menu:
 		0:
 			$Resume.color = Color.greenyellow
 		1:
-			$Restart.color = Color.greenyellow
+			$Save_Game.color = Color.greenyellow
 		2:
 			$Quit.color = Color.greenyellow
 
@@ -24,7 +24,11 @@ func _input(event):
 			change_menu_color(selected_menu)
 			popup()
 	else:
-		if Input.is_action_just_pressed("ui_down"):
+		if Input.is_action_just_pressed("menu"):
+			get_tree().paused = false
+			hide()
+			
+		elif Input.is_action_just_pressed("ui_down"):
 			selected_menu = (selected_menu + 1) % 3;
 			change_menu_color(selected_menu)
 		elif Input.is_action_just_pressed("ui_up"):
@@ -40,9 +44,28 @@ func _input(event):
 					hide()
 				1:
 					#Save game
-					get_tree().paused = false
+					$Popup.popup()
+					save_game()
+					yield(get_tree().create_timer(1.0), "timeout")
+					$Popup.hide()
 				2:
 					# Quit game
 					get_tree().paused = false
 					get_tree().change_scene("res://TitleScreen.tscn")
 	
+const FILE_NAME = "res://Save/savedgame.json"
+func save():
+	var save_dict = {
+		"score" : get_node("/root/Globals").player["score"],
+		"coins" : get_node("/root/Globals").player["coins"],
+		"lives" : get_node("/root/Globals").player["lives"],
+		"furthest_level" : get_node("/root/Globals").player["furthest_level"],
+		"current_scene" : get_node("/root/Globals").player["current_scene"],
+	}
+	return save_dict
+
+func save_game():
+	var file = File.new()
+	file.open(FILE_NAME, File.WRITE)
+	file.store_string(to_json(save()))
+	file.close()

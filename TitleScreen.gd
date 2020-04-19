@@ -15,10 +15,19 @@ func _physics_process(delta):
 	
 #When Play pressed, the scene will change and game will start
 func _on_Play_pressed():
-	get_node("/root/Globals").current_scene = "1-1"
-	get_node("/root/Globals").counter = 300
 	get_tree().change_scene("res://StageOne.tscn")
 
 #Exiting the game if quit pressed
 func _on_Quit_pressed():
 	get_tree().quit()
+
+func _on_Load_pressed():
+	$PopupMenu.popup()
+	
+func _on_No_pressed():
+	$PopupMenu.hide()
+	
+func _on_Yes_pressed():
+	get_node("/root/Globals").loaded == true
+	get_node("/root/Globals").load()
+	$PopupMenu.hide()

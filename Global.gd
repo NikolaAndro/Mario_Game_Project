@@ -8,7 +8,22 @@ var enemy2_tile_pos = Vector2(2,2) #keeps the position of the tile the enemy 2 c
 var enemy3_tile_pos = Vector2(3,3) #keeps the position of the tile the enemy 3 colided with
 var enemy4_tile_pos = Vector2(4,4) #keeps the position of the tile the enemy 4 colided with
 var enemy5_tile_pos = Vector2(5,5) #keeps the position of the tile the flying enemy colided with
-var lives = 3	#numbers of lives Mario has.
-var score = 0	#Score the Mario reached.
-var coins = 0	#Number of coins Mario collected
 var counter = 300	#Counter for level's time limit
+var loaded = false
+
+var player = {
+	"coins": 0,
+	"current_scene": "1-1",
+	"furthest_level": "1-1",
+	"lives": 3,
+	"score": 0,
+}
+
+const FILE_NAME = "res://Save/savedgame"
+func load():
+	var file = File.new()
+	file.open(FILE_NAME, File.READ)
+	var text = file.get_as_text()
+	var data = JSON.parse(text)
+	player = data.result
+	file.close()

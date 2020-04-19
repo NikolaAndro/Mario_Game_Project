@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Mario-assets/Other/menu.jpg" type="Texture" id=1]
 [ext_resource path="res://Mario-assets/Other/quit.png" type="Texture" id=2]
 [ext_resource path="res://Mario-assets/Other/play.png" type="Texture" id=3]
 [ext_resource path="res://TitleScreen.gd" type="Script" id=4]
 [ext_resource path="res://Mario-assets/Other/menu pointer.png" type="Texture" id=5]
+[ext_resource path="res://Mario-assets/Other/floppy_disk.png" type="Texture" id=6]
 
 [node name="Node" type="Node"]
 script = ExtResource( 4 )
@@ -51,5 +52,77 @@ position = Vector2( 0.655025, 0 )
 scale = Vector2( 0.199147, 0.224809 )
 texture = ExtResource( 1 )
 centered = false
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+margin_left = 78.0
+margin_top = 46.0
+margin_right = 245.0
+margin_bottom = 123.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PopupMenu"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 163.0
+margin_bottom = 22.0
+text = "Load last saved game?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupMenu"]
+margin_left = 11.0
+margin_top = 25.0
+margin_right = 156.0
+margin_bottom = 69.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="Button" parent="PopupMenu/VBoxContainer"]
+margin_right = 145.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="PopupMenu/VBoxContainer/Yes"]
+margin_right = 145.0
+margin_bottom = 20.0
+text = "YES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Button" parent="PopupMenu/VBoxContainer"]
+margin_top = 24.0
+margin_right = 145.0
+margin_bottom = 44.0
+
+[node name="Label" type="Label" parent="PopupMenu/VBoxContainer/No"]
+margin_right = 145.0
+margin_bottom = 19.0
+text = "NO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load" type="TextureButton" parent="."]
+margin_left = 2.0
+margin_top = 151.0
+margin_right = 34.0
+margin_bottom = 181.0
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="PopupMenu/VBoxContainer/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="PopupMenu/VBoxContainer/No" to="." method="_on_No_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_Load_pressed"]
