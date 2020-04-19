@@ -1,7 +1,7 @@
 extends TileMap
 
 var _tileset
-var path = "res://level2-1.csv"
+onready var path = get_node("/root/Globals").path
 
 func _ready():
 	setMap()
