@@ -10,11 +10,12 @@ var enemy4_tile_pos = Vector2(4,4) #keeps the position of the tile the enemy 4 c
 var enemy5_tile_pos = Vector2(5,5) #keeps the position of the tile the flying enemy colided with
 var counter = 300	#Counter for level's time limit
 var loaded = false
+var path = "res://level2-1.csv"
 
 var player = {
 	"coins": 0,
 	"current_scene": "1-1",
-	"furthest_level": "1-1",
+	"furthest_scene": "1-1",
 	"lives": 3,
 	"score": 0,
 }
