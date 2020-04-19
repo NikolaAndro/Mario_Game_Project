@@ -59,7 +59,7 @@ func save():
 		"score" : get_node("/root/Globals").player["score"],
 		"coins" : get_node("/root/Globals").player["coins"],
 		"lives" : get_node("/root/Globals").player["lives"],
-		"furthest_level" : get_node("/root/Globals").player["furthest_level"],
+		"furthest_level" : get_node("/root/Globals").player["furthest_scene"],
 		"current_scene" : get_node("/root/Globals").player["current_scene"],
 	}
 	return save_dict

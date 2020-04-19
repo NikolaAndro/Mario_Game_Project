@@ -302,7 +302,15 @@ func _physics_process(delta):
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
 				#yield(get_tree().create_timer(5), "timeout")
-				get_tree().change_scene("TitleScreen.tscn")
+				var x = get_node("/root/Globals").player.furthest_scene
+				if x == "1-1":
+					get_node("/root/Globals").player["furthest_scene"] = "2-1"
+					get_node("/root/Globals").player["current_scene"] = "2-1"
+					get_tree().change_scene("TitleScreen.tscn")
+				elif x == "2-1":
+					get_node("/root/Globals").player["furthest_scene"] = "4-2"
+					get_node("/root/Globals").player["current_scene"] = "4-2"
+					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite22"): # flag top
 				var sfx = "flagpole"
@@ -310,7 +318,15 @@ func _physics_process(delta):
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
-				get_tree().change_scene("TitleScreen.tscn")
+				var x = get_node("/root/Globals").player["furthest_scene"]
+				if x == "1-1":
+					get_node("/root/Globals").player["furthest_scene"] = "2-1"
+					get_node("/root/Globals").player["current_scene"] = "2-1"
+					get_tree().change_scene("TitleScreen.tscn")
+				elif x == "2-1":
+					get_node("/root/Globals").player["furthest_scene"] = "4-2"
+					get_node("/root/Globals").player["current_scene"] = "4-2"
+					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
