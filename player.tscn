@@ -32,9 +32,9 @@ animations = [ {
 "name": "disabled",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "JUMP_level_up",
+"name": "RUN_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -47,9 +47,9 @@ animations = [ {
 "name": "FALL_level_up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "RUN_level_up",
+"name": "JUMP_level_up",
 "speed": 5.0
 } ]
 

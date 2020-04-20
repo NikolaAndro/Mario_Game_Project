@@ -47,6 +47,7 @@ func _ready():
 
 #Used to run Mario
 func _physics_process(delta):
+		
 	jump_timer += 1
 	if Input.is_action_pressed("ui_right"):
 		if 	direction == -1:
@@ -156,6 +157,22 @@ func _physics_process(delta):
 		else:
 			get_node("/root/Globals").player["lives"] = 3
 			get_tree().change_scene("GameOver.tscn")
+	
+	if get_node("/root/Globals").counter <= 0:
+		get_tree().paused = true
+		health_level -=1
+		get_node("BodyCol").disabled = true
+		MusicController.stop()
+		$AnimatedSprite.play("death")
+		var sfx = "mario_dies"
+		$AudioStreamPlayer2D.playSound(sfx)
+		yield(get_tree().create_timer(3.0), "timeout")
+		get_tree().paused = false
+		if get_node("/root/Globals").player["lives"] > 0:
+			get_tree().reload_current_scene()
+			get_node("/root/Globals").player["lives"] -=1 
+		else:
+			get_tree().change_scene("res://GameOver.tscn")
 			
 		
 	velocity = move_and_slide(velocity, FLOOR)
@@ -302,13 +319,13 @@ func _physics_process(delta):
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
 				#yield(get_tree().create_timer(5), "timeout")
-				var x = get_node("/root/Globals").player.furthest_scene
+				var x = get_node("/root/Globals").player["furthest_level"]
 				if x == "1-1":
-					get_node("/root/Globals").player["furthest_scene"] = "2-1"
+					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_scene"] = "4-2"
+					get_node("/root/Globals").player["furthest_level"] = "4-2"
 					get_node("/root/Globals").player["current_scene"] = "4-2"
 					get_tree().change_scene("TitleScreen.tscn")
 
@@ -318,13 +335,13 @@ func _physics_process(delta):
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
-				var x = get_node("/root/Globals").player["furthest_scene"]
+				var x = get_node("/root/Globals").player["furthest_level"]
 				if x == "1-1":
-					get_node("/root/Globals").player["furthest_scene"] = "2-1"
+					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_scene"] = "4-2"
+					get_node("/root/Globals").player["furthest_level"] = "4-2"
 					get_node("/root/Globals").player["current_scene"] = "4-2"
 					get_tree().change_scene("TitleScreen.tscn")
 
@@ -495,3 +512,8 @@ func _on_DeathDetector_level_up_area_entered(area):
 					get_node("DeathDetector_level_up").set_collision_layer(0)
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
+
+
+func _on_counter_timeout():
+	get_node("/root/Globals").counter -=1
+	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
