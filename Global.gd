@@ -15,7 +15,7 @@ var path = "res://level2-1.csv"
 var player = {
 	"coins": 0,
 	"current_scene": "1-1",
-	"furthest_scene": "1-1",
+	"furthest_level": "1-1",
 	"lives": 3,
 	"score": 0,
 }

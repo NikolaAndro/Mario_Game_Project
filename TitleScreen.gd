@@ -15,14 +15,14 @@ func _physics_process(delta):
 	
 #When Play pressed, the scene will change and game will start
 func _on_Play_pressed():
+	
 	if get_node("/root/Globals").player["current_scene"] == "1-1":
 		get_node("/root/Globals").path = "res://level_one.csv"
 	if get_node("/root/Globals").player["current_scene"] == "2-1":
 		get_node("/root/Globals").path = "res://level2-1.csv"
 	if get_node("/root/Globals").player["current_scene"] == "4-2":
 		get_node("/root/Globals").path = "res://level4-2.csv"
-		
-	
+	get_node("/root/Globals").counter = 300
 	get_tree().change_scene("res://StageOne.tscn")
 
 #Exiting the game if quit pressed
