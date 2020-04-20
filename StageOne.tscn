@@ -350,4 +350,9 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
 shape = SubResource( 1 )
+
+[node name="counter" type="Timer" parent="."]
+process_mode = 0
+autostart = true
 [connection signal="tree_exited" from="." to="." method="_on_StageOne_tree_exited"]
+[connection signal="timeout" from="counter" to="player" method="_on_counter_timeout"]
