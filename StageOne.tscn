@@ -1,13 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/mario_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Ground Enemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Ground Enemy 2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://mario_tiles.tres" type="TileSet" id=5]
-[ext_resource path="res://Ground Enemy 4.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Flying Enemy.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Ground Enemy 3.tscn" type="PackedScene" id=8]
 [ext_resource path="res://mario_tiles.gd" type="Script" id=9]
 [ext_resource path="res://Mario-assets/Other/Overworld_mountain.png" type="Texture" id=10]
 [ext_resource path="res://Mario-assets/Other/Overworld_sky.png" type="Texture" id=11]
@@ -141,7 +136,6 @@ custom_fonts/font = ExtResource( 2 )
 
 [node name="MenuPopup" type="Popup" parent="player/CanvasLayer"]
 pause_mode = 2
-visible = true
 margin_left = 68.0
 margin_top = -2.0
 margin_right = 581.0
@@ -239,9 +233,6 @@ text = "Saving Game..."
 align = 1
 valign = 1
 
-[node name="Ground Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 92.436, 33.9265 )
-
 [node name="mario_tiles" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 15, 15 )
@@ -249,18 +240,6 @@ cell_quadrant_size = 13
 cell_custom_transform = Transform2D( 15, 0, 0, 15, 0, 0 )
 format = 1
 script = ExtResource( 9 )
-
-[node name="Ground Enemy 2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 150.268, 183.971 )
-
-[node name="Flying Enemy 2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 124.814, 93.9099 )
-
-[node name="Ground Enemy 3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 64.1748, 137.073 )
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 6 )]
-position = Vector2( 193.168, 112.473 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

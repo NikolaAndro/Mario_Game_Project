@@ -134,20 +134,25 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite33"))
 				
+			if(mainData[i][j] == '0'):
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite34"))
+				
 			if(mainData[i][j] == '1'):
-				print("Enemy 1")
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite35"))
 				
 			if(mainData[i][j] == '2'):
-				print("Enemy 2")
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite36"))
 				
 			if(mainData[i][j] == '3'):
-				print("Enemy 3")
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite37"))
 				
 			if(mainData[i][j] == '4'):
-				print("Enemy 4")
-				
-			if(mainData[i][j] == '5'):
-				print("Enemy 5")
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite38"))
 				
 			if(mainData[i][j] == '@'):
 				print("Dead Box")

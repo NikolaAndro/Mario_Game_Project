@@ -12,7 +12,8 @@ var falling = 0		#checking if the enemy is falling
 
 #Starting position of the enemy
 func _ready():
-	set_position(Vector2(500,210))
+	pass
+	#set_position(Vector2(500,210))
 	
 func _physics_process(delta):
 	if is_dead == false:

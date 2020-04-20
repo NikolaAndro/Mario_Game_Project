@@ -12,8 +12,9 @@ var attack = 0		#tracking the time between hammer throws
 var falling = 0		#checking if falling
 
 func _ready():
-	set_position(Vector2(400,150))
-
+	#set_position(Vector2(400,150))
+	pass
+	
 func _physics_process(delta):
 	attack += 1
 	velocity.x = SPEED*direction
