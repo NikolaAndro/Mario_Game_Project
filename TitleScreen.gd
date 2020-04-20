@@ -54,7 +54,7 @@ func _on_Map_pressed():
 
 
 func _on_21_pressed():
-	var x = get_node("/root/Globals").player["furthest_scene"]
+	var x = get_node("/root/Globals").player["furthest_level"]
 	if x == "2-1" or x == "4-2":
 		get_node("/root/Globals").player["current_scene"] = "2-1"
 		$Popup.popup()
@@ -70,7 +70,7 @@ func _on_21_pressed():
 
 
 func _on_42_pressed():
-	var x = get_node("/root/Globals").player["furthest_scene"]
+	var x = get_node("/root/Globals").player["furthest_level"]
 	if x == "4-2":
 		get_node("/root/Globals").player["current_scene"] = "4-2"
 		$Popup.popup()
