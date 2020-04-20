@@ -23,6 +23,11 @@ run/main_scene="res://TitleScreen.tscn"
 MusicController="*res://MusicController.tscn"
 Globals="*res://Global.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+
 [display]
 
 window/size/width=320

@@ -45,6 +45,17 @@ func _ready():
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
 
+# called on player input
+func _input(event):
+	var tilemap = get_node("../mario_tiles")
+	var tilemap_position = (global_position/tilemap.cell_size).floor()
+
+	# if attempting to go through pipe
+	if event.is_action_pressed("ui_down"):
+		# check if tile below is "pipe top" which is 32 on our tilemap
+		if tilemap.get_cell(tilemap_position.x, tilemap_position.y+1) == 32:
+			print("going through pipe")
+
 #Used to run Mario
 func _physics_process(delta):
 		
