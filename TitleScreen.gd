@@ -12,10 +12,9 @@ func _physics_process(delta):
 		$MarginContainer/VBoxContainer/Play.grab_focus()
 	if $MarginContainer/VBoxContainer/Quit.is_hovered() == true:
 		$MarginContainer/VBoxContainer/Quit.grab_focus()
-	
+
 #When Play pressed, the scene will change and game will start
 func _on_Play_pressed():
-	
 	if get_node("/root/Globals").player["current_scene"] == "1-1":
 		get_node("/root/Globals").path = "res://level_one.csv"
 	if get_node("/root/Globals").player["current_scene"] == "2-1":

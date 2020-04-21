@@ -16,13 +16,25 @@ var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
 
 
+## Picks where player comes out of pipe
+func exit_pipe():
+		var x = get_node("/root/Globals").player["current_scene"]
+
+		if x == "1-1":
+			# (223, 173)
+			global_position = Vector2(223, 173)
+		if x == "2-1":
+			# (480, 143)
+			# (792, 143)
+			global_position = Vector2(480, 143)
+
 #Initializing the timer
 func _init():
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = 10
 	timer.connect("timeout", self, "_timeout")
-	
+
 #Time used for the invinsibility of Mario when pick up the red mushroom or colides 
 #with an enemy
 func _timeout():
@@ -30,8 +42,11 @@ func _timeout():
 	get_node("/root/Globals").damage = 0
 	timer.wait_time = 10
 	timer.stop()
-	
+
 func _ready():
+	if get_node("/root/Globals").player["score"] > 0:
+		exit_pipe()
+
 	#sets initial label values upon start of level
 	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
 	$CanvasLayer/HBoxContainer/World/Current_World.text = get_node("/root/Globals").player["current_scene"]
@@ -40,12 +55,29 @@ func _ready():
 	$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
 	randomize() #seeds random number generator
 	hits_left = randi() % 10 +  5 #sets the random variable
-	
+
 		#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
 
-# called on player input
+## Sends the player to a pipe from another level
+func pipe_level():
+	get_node("/root/Globals").player["score"] += 10
+	get_node("BodyCol").disabled = true
+
+	var x = get_node("/root/Globals").player["current_scene"]
+	if x == "1-1":
+		get_node("/root/Globals").player["furthest_level"] = "2-1"
+		get_node("/root/Globals").player["current_scene"] = "2-1"
+		get_node("/root/Globals").path = "res://level2-1.csv"
+	elif x == "2-1":
+		get_node("/root/Globals").player["furthest_level"] = "1-1"
+		get_node("/root/Globals").player["current_scene"] = "1-1"
+		get_node("/root/Globals").path = "res://level_one.csv"
+
+	get_tree().change_scene("res://StageOne.tscn")
+
+## called on player input
 func _input(event):
 	var tilemap = get_node("../mario_tiles")
 	var tilemap_position = (global_position/tilemap.cell_size).floor()
@@ -54,7 +86,7 @@ func _input(event):
 	if event.is_action_pressed("ui_down"):
 		# check if tile below is "pipe top" which is 32 on our tilemap
 		if tilemap.get_cell(tilemap_position.x, tilemap_position.y+1) == 32:
-			print("going through pipe")
+			pipe_level()
 
 #Used to run Mario
 func _physics_process(delta):
