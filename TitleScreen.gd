@@ -19,8 +19,8 @@ func _on_Play_pressed():
 		get_node("/root/Globals").path = "res://level_one.csv"
 	if get_node("/root/Globals").player["current_scene"] == "2-1":
 		get_node("/root/Globals").path = "res://level2-1.csv"
-	if get_node("/root/Globals").player["current_scene"] == "4-2":
-		get_node("/root/Globals").path = "res://level4-2.csv"
+	#if get_node("/root/Globals").player["current_scene"] == "4-2":
+	#	get_node("/root/Globals").path = "res://level4-2.csv"
 	get_node("/root/Globals").counter = 300
 	get_tree().change_scene("res://StageOne.tscn")
 

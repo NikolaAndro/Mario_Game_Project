@@ -18,7 +18,7 @@ var hits_left  #used for multi-coin block to randomize how many hits you get
 
 ## Picks where player comes out of pipe
 func exit_pipe():
-	get_node("/root/Globals").in_pipe = 1
+	get_node("/root/Globals").in_pipe = 0
 	var scene = get_node("/root/Globals").player["current_scene"]
 	var stage_in = get_node("/root/Globals").pipe[0]
 	var pipe_number = get_node("/root/Globals").pipe[1]
@@ -34,6 +34,7 @@ func exit_pipe():
 		else:
 			global_position = Vector2(660, 173)
 	if scene == "2-1":
+		print(get_node("/root/Globals").pipe)
 		# pipe 1: (464, 143)  |--|  (478, 143)
 		# pipe 2: (780, 143)  |--|  (795, 143)
 		# pipe 2: (1048, 143)  |--|  (1066, 143)
@@ -80,8 +81,8 @@ func _ready():
 func pipe_level():
 	get_node("/root/Globals").in_pipe = 1
 	get_node("BodyCol").disabled = true
-	var pipe_number
 	var x = get_node("/root/Globals").player["current_scene"]
+	var pipe_number
 
 	if x == "1-1":
 		get_node("/root/Globals").player["furthest_level"] = "2-1"
@@ -91,12 +92,13 @@ func pipe_level():
 		# pipe 2: (449, 173)  |--|  (466, 173)
 		# pipe 3: (644, 173)  |--|  (660, 173)
 		if position.x > 209 and position.x < 226:
-			pipe_number = 1
-		elif position.x > 449 and position.x < 446:
-			pipe_number = 2
+			pipe_number = 3
+		elif position.x > 449 and position.x < 466:
+			pipe_number = 3
 		elif position.x > 644 and position.x < 660:
 			pipe_number = 3
 		get_node("/root/Globals").pipe = ["1-1", pipe_number]
+		print(get_node("/root/Globals").pipe)
 	elif x == "2-1":
 		get_node("/root/Globals").player["furthest_level"] = "1-1"
 		get_node("/root/Globals").player["current_scene"] = "1-1"
@@ -107,9 +109,9 @@ func pipe_level():
 		if position.x > 464 and position.x < 478:
 			pipe_number = 1
 		elif position.x > 780 and position.x < 795:
-			pipe_number = 2
+			pipe_number = 1
 		elif position.x > 1048 and position.x < 1066:
-			pipe_number = 3
+			pipe_number = 1
 		get_node("/root/Globals").pipe = ["2-1", pipe_number]
 
 	get_tree().change_scene("res://StageOne.tscn")
@@ -280,11 +282,11 @@ func _physics_process(delta):
 			get_node("/root/Globals").tile_pos -= collision.normal
 			tile_id = collision.collider.get_cellv(get_node("/root/Globals").tile_pos)
 			tile_name = collision.collider.tile_set.tile_get_name(tile_id)
-			
+
 			#if some enemy is colliding with the same block kill the enemy
 			#for each case below, all applicable labels and counters must be updated
 			#additionally, sound effects (sfx) will be played on a separate audio channel than the background music
-			
+
 			if(tile_name == "Sprite" and Input.is_action_pressed("ui_up")): #? block - coin
 				get_node("/root/Globals").player["coins"] += 1
 				get_node("/root/Globals").player["score"] += 200
@@ -397,7 +399,7 @@ func _physics_process(delta):
 				$AudioStreamPlayer2D.playSound(sfx)
 				get_node("/root/Globals").player["score"] += 500
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				get_node("BodyCol").disabled = true
+				#get_node("BodyCol").disabled = true
 				#yield(get_tree().create_timer(5), "timeout")
 				var x = get_node("/root/Globals").player["furthest_level"]
 				if x == "1-1":
@@ -405,8 +407,8 @@ func _physics_process(delta):
 					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_level"] = "4-2"
-					get_node("/root/Globals").player["current_scene"] = "4-2"
+					get_node("/root/Globals").player["furthest_level"] = "2-1"
+					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite22"): # flag top
@@ -421,8 +423,8 @@ func _physics_process(delta):
 					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_level"] = "4-2"
-					get_node("/root/Globals").player["current_scene"] = "4-2"
+					get_node("/root/Globals").player["furthest_level"] = "2-1"
+					get_node("/root/Globals").player["current_scene"] = "2-1"
 					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
